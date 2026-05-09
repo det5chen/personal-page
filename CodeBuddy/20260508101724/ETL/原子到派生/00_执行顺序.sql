@@ -1,0 +1,13 @@
+-- ===================================================================
+-- 原子 → 派生  ETL 执行顺序
+-- 说明：按序号依次执行，无依赖关系可并行
+-- ===================================================================
+-- 01. ENC_DERIVED         就诊派生表       ← ENC_EMER_OUTP_VISIT + ENC_INP_VISIT + ENC_BED_RECORD
+-- 02. REV_DERIVED_RX_ORD  处方医嘱派生表   ← ORD_RX_OUTP_PRESCRIPTION + ORD_INP_ORDER + ORD_MED_OUTP_USAGE + ORD_MED_INP_USAGE
+-- 03. FEE_DERIVED         费用派生表       ← FEE_OUTP_VISIT + FEE_INP_VISIT
+-- 04. REV_DERIVED_AUDIT   审方点评派生表   ← REV_RX_OUTP_AUDIT_REVIEW + REV_ORD_INP_AUDIT + REV_MR_DISCHARGE_REVIEW
+-- 05. MDM_DERIVED_STAFF   人员派生表       ← MDM_STAFF
+-- 06. SURG_DERIVED        手术派生表       ← SURG_RECORD + ORD_MED_INP_USAGE
+-- 07. NUR_DERIVED         护理派生表       ← NUR_INFUSION_INP_RECORD + NUR_INFUSION_OUTP_RECORD + NUR_IVADMIX_RECORD
+-- 08. ADR_DERIVED         药品不良反应派生表 ← ADR_RECORD
+-- ===================================================================

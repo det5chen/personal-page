@@ -1,0 +1,17 @@
+-- ===================================================================
+-- 派生 → 复合  ETL 执行顺序
+-- 说明：需先执行原子→派生脚本，再执行本目录脚本
+-- 依赖关系：
+--   需先执行 原子到派生/01~08，得到所有派生表数据
+--   再按以下顺序执行复合(指标)表：
+-- ===================================================================
+-- 01. ENC_DERIVED_IDX    就诊域指标表     ← ENC_DERIVED + REV_DERIVED_RX_ORD
+-- 02. REV_DERIVED_IDX    处方点评域指标表  ← REV_DERIVED_AUDIT
+-- 03. RX_ORD_DERIVED_IDX 处方医嘱域指标表  ← REV_DERIVED_RX_ORD + FEE_DERIVED + ENC_DERIVED + NUR_DERIVED
+-- 04. FEE_DERIVED_IDX    费用域指标表     ← FEE_DERIVED + ENC_DERIVED + REV_DERIVED_RX_ORD
+-- 05. SUP_DERIVED_IDX    供应链域指标表   ← 外部供应链系统(占位)
+-- 06. NUR_DERIVED_IDX    护理域指标表     ← NUR_DERIVED + ENC_DERIVED
+-- 07. SURG_DERIVED_IDX   手术用药域指标表 ← SURG_DERIVED
+-- 08. MDM_DERIVED_IDX    主数据域指标表   ← MDM_DERIVED_STAFF + ENC_DERIVED
+-- 09. ADR_DERIVED_IDX    不良反应域指标表 ← ADR_DERIVED
+-- ===================================================================

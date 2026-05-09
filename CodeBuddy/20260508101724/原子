@@ -1,0 +1,1011 @@
+﻿
+DROP TABLE IF EXISTS atomic.ENC_EMER_OUTP_VISIT;
+CREATE TABLE atomic.ENC_EMER_OUTP_VISIT(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    register_type_code VARCHAR2(64) NULL,
+    register_type_name VARCHAR2(64) NULL,
+    register_id VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.register_type_code IS 'register_type_code';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.register_type_name IS 'register_type_name';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.register_id IS 'register_id';
+COMMENT ON COLUMN atomic.ENC_EMER_OUTP_VISIT.patient_id IS 'patient_id';
+COMMENT ON TABLE atomic.ENC_EMER_OUTP_VISIT IS '门急诊就诊表;就诊域';
+
+
+DROP TABLE IF EXISTS atomic.ENC_INP_VISIT;
+CREATE TABLE atomic.ENC_INP_VISIT(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    treat_group_code VARCHAR2(64) NULL,
+    treat_group_name VARCHAR2(64) NULL,
+    adm_route_code VARCHAR2(64) NULL,
+    adm_route_name VARCHAR2(64) NULL,
+    discharge_way_code VARCHAR2(64) NULL,
+    discharge_way_name VARCHAR2(64) NULL,
+    surgery_flag VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    inp_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.treat_group_code IS 'treat_group_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.treat_group_name IS 'treat_group_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.adm_route_code IS 'adm_route_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.adm_route_name IS 'adm_route_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.discharge_way_code IS 'discharge_way_code';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.discharge_way_name IS 'discharge_way_name';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.surgery_flag IS 'surgery_flag';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.inp_no IS 'inp_no';
+COMMENT ON COLUMN atomic.ENC_INP_VISIT.patient_id IS 'patient_id';
+COMMENT ON TABLE atomic.ENC_INP_VISIT IS '住院就诊表;就诊域';
+
+
+DROP TABLE IF EXISTS atomic.ENC_BED_RECORD;
+CREATE TABLE atomic.ENC_BED_RECORD(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    bed_id VARCHAR2(64) NULL,
+    bed_code VARCHAR2(64) NULL,
+    bed_status_code VARCHAR2(64) NULL,
+    bed_status_name VARCHAR2(64) NULL,
+    open_flag VARCHAR2(64) NULL,
+    occupy_flag VARCHAR2(64) NULL,
+    occupy_patient_id VARCHAR2(64) NULL,
+    occupy_inp_no VARCHAR2(64) NULL,
+    bed_day VARCHAR2(64) NULL,
+    open_bed_day VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.bed_id IS 'bed_id';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.bed_code IS 'bed_code';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.bed_status_code IS 'bed_status_code';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.bed_status_name IS 'bed_status_name';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.open_flag IS 'open_flag';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.occupy_flag IS 'occupy_flag';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.occupy_patient_id IS 'occupy_patient_id';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.occupy_inp_no IS 'occupy_inp_no';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.bed_day IS 'bed_day';
+COMMENT ON COLUMN atomic.ENC_BED_RECORD.open_bed_day IS 'open_bed_day';
+COMMENT ON TABLE atomic.ENC_BED_RECORD IS '床位表;就诊域';
+
+
+DROP TABLE IF EXISTS atomic.ORD_RX_OUTP_PRESCRIPTION;
+CREATE TABLE atomic.ORD_RX_OUTP_PRESCRIPTION(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    presc_type_code VARCHAR2(64) NULL,
+    presc_type_name VARCHAR2(64) NULL,
+    register_type_code VARCHAR2(64) NULL,
+    register_type_name VARCHAR2(64) NULL,
+    presc_id VARCHAR2(64) NULL,
+    presc_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    register_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.presc_type_code IS 'presc_type_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.presc_type_name IS 'presc_type_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.register_type_code IS 'register_type_code';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.register_type_name IS 'register_type_name';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.presc_id IS 'presc_id';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.presc_no IS 'presc_no';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.ORD_RX_OUTP_PRESCRIPTION.register_id IS 'register_id';
+COMMENT ON TABLE atomic.ORD_RX_OUTP_PRESCRIPTION IS '门急诊处方表;处方医嘱域';
+
+
+DROP TABLE IF EXISTS atomic.ORD_INP_ORDER;
+CREATE TABLE atomic.ORD_INP_ORDER(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    treat_group_code VARCHAR2(64) NULL,
+    treat_group_name VARCHAR2(64) NULL,
+    order_type_code VARCHAR2(64) NULL,
+    order_type_name VARCHAR2(64) NULL,
+    order_id VARCHAR2(64) NULL,
+    order_no VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    inp_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.treat_group_code IS 'treat_group_code';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.treat_group_name IS 'treat_group_name';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.order_type_code IS 'order_type_code';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.order_type_name IS 'order_type_name';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.order_id IS 'order_id';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.order_no IS 'order_no';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.inp_no IS 'inp_no';
+COMMENT ON COLUMN atomic.ORD_INP_ORDER.patient_id IS 'patient_id';
+COMMENT ON TABLE atomic.ORD_INP_ORDER IS '住院医嘱表;处方医嘱域';
+
+
+DROP TABLE IF EXISTS atomic.ORD_MED_OUTP_USAGE;
+CREATE TABLE atomic.ORD_MED_OUTP_USAGE(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    drug_code VARCHAR2(64) NULL,
+    drug_name VARCHAR2(64) NULL,
+    drug_type_code VARCHAR2(64) NULL,
+    register_type_code VARCHAR2(64) NULL,
+    register_type_name VARCHAR2(64) NULL,
+    drug_type_name VARCHAR2(64) NULL,
+    dosage_route_code VARCHAR2(64) NULL,
+    dosage_route_name VARCHAR2(64) NULL,
+    is_basic_drug_flag VARCHAR2(64) NULL,
+    presc_id VARCHAR2(64) NULL,
+    presc_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    register_id VARCHAR2(64) NULL,
+    drug_item_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.drug_code IS 'drug_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.drug_name IS 'drug_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.drug_type_code IS 'drug_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.register_type_code IS 'register_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.register_type_name IS 'register_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.drug_type_name IS 'drug_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.dosage_route_code IS 'dosage_route_code';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.dosage_route_name IS 'dosage_route_name';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.is_basic_drug_flag IS 'is_basic_drug_flag';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.presc_id IS 'presc_id';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.presc_no IS 'presc_no';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.register_id IS 'register_id';
+COMMENT ON COLUMN atomic.ORD_MED_OUTP_USAGE.drug_item_id IS 'drug_item_id';
+COMMENT ON TABLE atomic.ORD_MED_OUTP_USAGE IS '门急诊药品使用表;处方医嘱域';
+
+
+DROP TABLE IF EXISTS atomic.ORD_MED_INP_USAGE;
+CREATE TABLE atomic.ORD_MED_INP_USAGE(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    treat_group_code VARCHAR2(64) NULL,
+    treat_group_name VARCHAR2(64) NULL,
+    order_type_code VARCHAR2(64) NULL,
+    order_type_name VARCHAR2(64) NULL,
+    drug_code VARCHAR2(64) NULL,
+    drug_name VARCHAR2(64) NULL,
+    drug_type_code VARCHAR2(64) NULL,
+    drug_type_name VARCHAR2(64) NULL,
+    dosage_route_code VARCHAR2(64) NULL,
+    dosage_route_name VARCHAR2(64) NULL,
+    iv_type_code VARCHAR2(64) NULL,
+    iv_type_name VARCHAR2(64) NULL,
+    mix_mode_code VARCHAR2(64) NULL,
+    mix_mode_name VARCHAR2(64) NULL,
+    is_tcm_herb_flag VARCHAR2(64) NULL,
+    is_tcm_inj_flag VARCHAR2(64) NULL,
+    is_ppi_inj_flag VARCHAR2(64) NULL,
+    is_acid_suppress_inj_flag VARCHAR2(64) NULL,
+    is_antibacterial_flag VARCHAR2(64) NULL,
+    anti_level_code VARCHAR2(64) NULL,
+    anti_level_name VARCHAR2(64) NULL,
+    is_antibacterial_inj_flag VARCHAR2(64) NULL,
+    is_antiemetic_flag VARCHAR2(64) NULL,
+    is_pn_flag VARCHAR2(64) NULL,
+    is_single_bottle_pn_flag VARCHAR2(64) NULL,
+    is_multi_chamber_bag_flag VARCHAR2(64) NULL,
+    is_all_in_one_pn_flag VARCHAR2(64) NULL,
+    is_basic_drug_flag VARCHAR2(64) NULL,
+    surgery_flag VARCHAR2(64) NULL,
+    order_id VARCHAR2(64) NULL,
+    order_no VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    inp_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    drug_item_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.treat_group_code IS 'treat_group_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.treat_group_name IS 'treat_group_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.order_type_code IS 'order_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.order_type_name IS 'order_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.drug_code IS 'drug_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.drug_name IS 'drug_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.drug_type_code IS 'drug_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.drug_type_name IS 'drug_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.dosage_route_code IS 'dosage_route_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.dosage_route_name IS 'dosage_route_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.iv_type_code IS 'iv_type_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.iv_type_name IS 'iv_type_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.mix_mode_code IS 'mix_mode_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.mix_mode_name IS 'mix_mode_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_tcm_herb_flag IS 'is_tcm_herb_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_tcm_inj_flag IS 'is_tcm_inj_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_ppi_inj_flag IS 'is_ppi_inj_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_acid_suppress_inj_flag IS 'is_acid_suppress_inj_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_antibacterial_flag IS 'is_antibacterial_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.anti_level_code IS 'anti_level_code';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.anti_level_name IS 'anti_level_name';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_antibacterial_inj_flag IS 'is_antibacterial_inj_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_antiemetic_flag IS 'is_antiemetic_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_pn_flag IS 'is_pn_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_single_bottle_pn_flag IS 'is_single_bottle_pn_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_multi_chamber_bag_flag IS 'is_multi_chamber_bag_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_all_in_one_pn_flag IS 'is_all_in_one_pn_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.is_basic_drug_flag IS 'is_basic_drug_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.surgery_flag IS 'surgery_flag';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.order_id IS 'order_id';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.order_no IS 'order_no';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.inp_no IS 'inp_no';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.ORD_MED_INP_USAGE.drug_item_id IS 'drug_item_id';
+COMMENT ON TABLE atomic.ORD_MED_INP_USAGE IS '住院药品使用表;处方医嘱域';
+
+
+DROP TABLE IF EXISTS atomic.FEE_OUTP_VISIT;
+CREATE TABLE atomic.FEE_OUTP_VISIT(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    charge_type_code VARCHAR2(64) NULL,
+    charge_type_name VARCHAR2(64) NULL,
+    drug_type_code VARCHAR2(64) NULL,
+    drug_type_name VARCHAR2(64) NULL,
+    is_assist_drug_flag VARCHAR2(64) NULL,
+    is_key_monitor_drug_flag VARCHAR2(64) NULL,
+    is_self_pay_drug_flag VARCHAR2(64) NULL,
+    register_type_code VARCHAR2(64) NULL,
+    register_type_name VARCHAR2(64) NULL,
+    register_id VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    charge_record_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.charge_type_code IS 'charge_type_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.charge_type_name IS 'charge_type_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.drug_type_code IS 'drug_type_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.drug_type_name IS 'drug_type_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.is_assist_drug_flag IS 'is_assist_drug_flag';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.is_key_monitor_drug_flag IS 'is_key_monitor_drug_flag';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.is_self_pay_drug_flag IS 'is_self_pay_drug_flag';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.register_type_code IS 'register_type_code';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.register_type_name IS 'register_type_name';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.register_id IS 'register_id';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.FEE_OUTP_VISIT.charge_record_id IS 'charge_record_id';
+COMMENT ON TABLE atomic.FEE_OUTP_VISIT IS '门急诊费用表;费用域';
+
+
+DROP TABLE IF EXISTS atomic.FEE_INP_VISIT;
+CREATE TABLE atomic.FEE_INP_VISIT(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    treat_group_code VARCHAR2(64) NULL,
+    treat_group_name VARCHAR2(64) NULL,
+    charge_type_code VARCHAR2(64) NULL,
+    charge_type_name VARCHAR2(64) NULL,
+    drug_type_code VARCHAR2(64) NULL,
+    drug_type_name VARCHAR2(64) NULL,
+    anti_level_code VARCHAR2(64) NULL,
+    anti_level_name VARCHAR2(64) NULL,
+    is_assist_drug_flag VARCHAR2(64) NULL,
+    is_key_monitor_drug_flag VARCHAR2(64) NULL,
+    is_antibacterial_flag VARCHAR2(64) NULL,
+    is_self_pay_drug_flag VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    inp_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    charge_record_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.treat_group_code IS 'treat_group_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.treat_group_name IS 'treat_group_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.charge_type_code IS 'charge_type_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.charge_type_name IS 'charge_type_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.drug_type_code IS 'drug_type_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.drug_type_name IS 'drug_type_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.anti_level_code IS 'anti_level_code';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.anti_level_name IS 'anti_level_name';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.is_assist_drug_flag IS 'is_assist_drug_flag';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.is_key_monitor_drug_flag IS 'is_key_monitor_drug_flag';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.is_antibacterial_flag IS 'is_antibacterial_flag';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.is_self_pay_drug_flag IS 'is_self_pay_drug_flag';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.inp_no IS 'inp_no';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.FEE_INP_VISIT.charge_record_id IS 'charge_record_id';
+COMMENT ON TABLE atomic.FEE_INP_VISIT IS '住院费用表;费用域';
+
+
+DROP TABLE IF EXISTS atomic.REV_RX_OUTP_AUDIT_REVIEW;
+CREATE TABLE atomic.REV_RX_OUTP_AUDIT_REVIEW(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    presc_type_code VARCHAR2(64) NULL,
+    presc_type_name VARCHAR2(64) NULL,
+    review_type_code VARCHAR2(64) NULL,
+    review_type_name VARCHAR2(64) NULL,
+    review_result_code VARCHAR2(64) NULL,
+    review_result_name VARCHAR2(64) NULL,
+    pharmacist_code VARCHAR2(64) NULL,
+    pharmacist_name VARCHAR2(64) NULL,
+    register_type_code VARCHAR2(64) NULL,
+    register_type_name VARCHAR2(64) NULL,
+    presc_id VARCHAR2(64) NULL,
+    presc_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    register_id VARCHAR2(64) NULL,
+    review_record_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.presc_type_code IS 'presc_type_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.presc_type_name IS 'presc_type_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.review_type_code IS 'review_type_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.review_type_name IS 'review_type_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.review_result_code IS 'review_result_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.review_result_name IS 'review_result_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.pharmacist_code IS 'pharmacist_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.pharmacist_name IS 'pharmacist_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.register_type_code IS 'register_type_code';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.register_type_name IS 'register_type_name';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.presc_id IS 'presc_id';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.presc_no IS 'presc_no';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.register_id IS 'register_id';
+COMMENT ON COLUMN atomic.REV_RX_OUTP_AUDIT_REVIEW.review_record_id IS 'review_record_id';
+COMMENT ON TABLE atomic.REV_RX_OUTP_AUDIT_REVIEW IS '门急诊处方审核点评表;处方点评域';
+
+
+DROP TABLE IF EXISTS atomic.REV_ORD_INP_AUDIT;
+CREATE TABLE atomic.REV_ORD_INP_AUDIT(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    treat_group_code VARCHAR2(64) NULL,
+    treat_group_name VARCHAR2(64) NULL,
+    order_type_code VARCHAR2(64) NULL,
+    order_type_name VARCHAR2(64) NULL,
+    review_type_code VARCHAR2(64) NULL,
+    review_type_name VARCHAR2(64) NULL,
+    review_result_code VARCHAR2(64) NULL,
+    review_result_name VARCHAR2(64) NULL,
+    pharmacist_code VARCHAR2(64) NULL,
+    pharmacist_name VARCHAR2(64) NULL,
+    order_id VARCHAR2(64) NULL,
+    order_no VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    inp_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    review_record_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.treat_group_code IS 'treat_group_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.treat_group_name IS 'treat_group_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.order_type_code IS 'order_type_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.order_type_name IS 'order_type_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.review_type_code IS 'review_type_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.review_type_name IS 'review_type_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.review_result_code IS 'review_result_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.review_result_name IS 'review_result_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.pharmacist_code IS 'pharmacist_code';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.pharmacist_name IS 'pharmacist_name';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.order_id IS 'order_id';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.order_no IS 'order_no';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.inp_no IS 'inp_no';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.REV_ORD_INP_AUDIT.review_record_id IS 'review_record_id';
+COMMENT ON TABLE atomic.REV_ORD_INP_AUDIT IS '住院医嘱审核表;处方点评域';
+
+
+DROP TABLE IF EXISTS atomic.REV_MR_DISCHARGE_REVIEW;
+CREATE TABLE atomic.REV_MR_DISCHARGE_REVIEW(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    doctor_code VARCHAR2(64) NULL,
+    doctor_name VARCHAR2(64) NULL,
+    treat_group_code VARCHAR2(64) NULL,
+    treat_group_name VARCHAR2(64) NULL,
+    discharge_type_code VARCHAR2(64) NULL,
+    discharge_type_name VARCHAR2(64) NULL,
+    review_result_code VARCHAR2(64) NULL,
+    review_result_name VARCHAR2(64) NULL,
+    is_key_monitor_drug_flag VARCHAR2(64) NULL,
+    pharmacist_code VARCHAR2(64) NULL,
+    pharmacist_name VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    inp_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    discharge_record_id VARCHAR2(64) NULL,
+    review_record_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.doctor_code IS 'doctor_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.doctor_name IS 'doctor_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.treat_group_code IS 'treat_group_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.treat_group_name IS 'treat_group_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.discharge_type_code IS 'discharge_type_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.discharge_type_name IS 'discharge_type_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.review_result_code IS 'review_result_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.review_result_name IS 'review_result_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.is_key_monitor_drug_flag IS 'is_key_monitor_drug_flag';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.pharmacist_code IS 'pharmacist_code';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.pharmacist_name IS 'pharmacist_name';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.inp_no IS 'inp_no';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.discharge_record_id IS 'discharge_record_id';
+COMMENT ON COLUMN atomic.REV_MR_DISCHARGE_REVIEW.review_record_id IS 'review_record_id';
+COMMENT ON TABLE atomic.REV_MR_DISCHARGE_REVIEW IS '出院病历点评表;处方点评域';
+
+
+DROP TABLE IF EXISTS atomic.MDM_STAFF;
+CREATE TABLE atomic.MDM_STAFF(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    staff_type_code VARCHAR2(64) NULL,
+    staff_type_name VARCHAR2(64) NULL,
+    qualification_code VARCHAR2(64) NULL,
+    qualification_name VARCHAR2(64) NULL,
+    position_code VARCHAR2(64) NULL,
+    position_name VARCHAR2(64) NULL,
+    staff_id VARCHAR2(64) NULL,
+    employee_no VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.MDM_STAFF.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.MDM_STAFF.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.MDM_STAFF.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.MDM_STAFF.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.MDM_STAFF.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.MDM_STAFF.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.MDM_STAFF.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.MDM_STAFF.staff_type_code IS 'staff_type_code';
+COMMENT ON COLUMN atomic.MDM_STAFF.staff_type_name IS 'staff_type_name';
+COMMENT ON COLUMN atomic.MDM_STAFF.qualification_code IS 'qualification_code';
+COMMENT ON COLUMN atomic.MDM_STAFF.qualification_name IS 'qualification_name';
+COMMENT ON COLUMN atomic.MDM_STAFF.position_code IS 'position_code';
+COMMENT ON COLUMN atomic.MDM_STAFF.position_name IS 'position_name';
+COMMENT ON COLUMN atomic.MDM_STAFF.staff_id IS 'staff_id';
+COMMENT ON COLUMN atomic.MDM_STAFF.employee_no IS 'employee_no';
+COMMENT ON TABLE atomic.MDM_STAFF IS '人员表;主数据域';
+
+
+DROP TABLE IF EXISTS atomic.NUR_INFUSION_INP_RECORD;
+CREATE TABLE atomic.NUR_INFUSION_INP_RECORD(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    order_type_code VARCHAR2(64) NULL,
+    order_type_name VARCHAR2(64) NULL,
+    is_surgery_flag VARCHAR2(64) NULL,
+    dosage_route_code VARCHAR2(64) NULL,
+    dosage_route_name VARCHAR2(64) NULL,
+    is_tcm_inj_flag VARCHAR2(64) NULL,
+    is_antibacterial_inj_flag VARCHAR2(64) NULL,
+    is_pn_flag VARCHAR2(64) NULL,
+    is_single_bottle_pn_flag VARCHAR2(64) NULL,
+    is_multi_chamber_bag_flag VARCHAR2(64) NULL,
+    is_all_in_one_pn_flag VARCHAR2(64) NULL,
+    order_id VARCHAR2(64) NULL,
+    order_no VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    inp_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    order_item_id VARCHAR2(64) NULL,
+    drug_item_id VARCHAR2(64) NULL,
+    bed_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.order_type_code IS 'order_type_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.order_type_name IS 'order_type_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.is_surgery_flag IS 'is_surgery_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.dosage_route_code IS 'dosage_route_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.dosage_route_name IS 'dosage_route_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.is_tcm_inj_flag IS 'is_tcm_inj_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.is_antibacterial_inj_flag IS 'is_antibacterial_inj_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.is_pn_flag IS 'is_pn_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.is_single_bottle_pn_flag IS 'is_single_bottle_pn_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.is_multi_chamber_bag_flag IS 'is_multi_chamber_bag_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.is_all_in_one_pn_flag IS 'is_all_in_one_pn_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.order_id IS 'order_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.order_no IS 'order_no';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.inp_no IS 'inp_no';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.order_item_id IS 'order_item_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.drug_item_id IS 'drug_item_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_INP_RECORD.bed_id IS 'bed_id';
+COMMENT ON TABLE atomic.NUR_INFUSION_INP_RECORD IS '住院患者静脉输液记录表;护理域';
+
+
+DROP TABLE IF EXISTS atomic.NUR_INFUSION_OUTP_RECORD;
+CREATE TABLE atomic.NUR_INFUSION_OUTP_RECORD(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    register_type_code VARCHAR2(64) NULL,
+    register_type_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    dosage_route_code VARCHAR2(64) NULL,
+    dosage_route_name VARCHAR2(64) NULL,
+    is_tcm_inj_flag VARCHAR2(64) NULL,
+    is_antibacterial_inj_flag VARCHAR2(64) NULL,
+    is_pn_flag VARCHAR2(64) NULL,
+    presc_id VARCHAR2(64) NULL,
+    presc_no VARCHAR2(64) NULL,
+    register_id VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    drug_item_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.register_type_code IS 'register_type_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.register_type_name IS 'register_type_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.dosage_route_code IS 'dosage_route_code';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.dosage_route_name IS 'dosage_route_name';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.is_tcm_inj_flag IS 'is_tcm_inj_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.is_antibacterial_inj_flag IS 'is_antibacterial_inj_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.is_pn_flag IS 'is_pn_flag';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.presc_id IS 'presc_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.presc_no IS 'presc_no';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.register_id IS 'register_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.NUR_INFUSION_OUTP_RECORD.drug_item_id IS 'drug_item_id';
+COMMENT ON TABLE atomic.NUR_INFUSION_OUTP_RECORD IS '门急诊患者静脉输液记录表;护理域';
+
+
+DROP TABLE IF EXISTS atomic.NUR_IVADMIX_RECORD;
+CREATE TABLE atomic.NUR_IVADMIX_RECORD(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    order_type_code VARCHAR2(64) NULL,
+    order_type_name VARCHAR2(64) NULL,
+    is_iv_audit_flag VARCHAR2(64) NULL,
+    is_iv_intervene_flag VARCHAR2(64) NULL,
+    is_tcm_inj_flag VARCHAR2(64) NULL,
+    is_antibacterial_inj_flag VARCHAR2(64) NULL,
+    is_ppi_inj_flag VARCHAR2(64) NULL,
+    is_acid_suppress_inj_flag VARCHAR2(64) NULL,
+    is_antiemetic_flag VARCHAR2(64) NULL,
+    is_pn_flag VARCHAR2(64) NULL,
+    is_single_bottle_pn_flag VARCHAR2(64) NULL,
+    is_multi_chamber_bag_flag VARCHAR2(64) NULL,
+    is_all_in_one_pn_flag VARCHAR2(64) NULL,
+    presc_id VARCHAR2(64) NULL,
+    order_id VARCHAR2(64) NULL,
+    register_id VARCHAR2(64) NULL,
+    admission_id VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    drug_item_id VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.order_type_code IS 'order_type_code';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.order_type_name IS 'order_type_name';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_iv_audit_flag IS 'is_iv_audit_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_iv_intervene_flag IS 'is_iv_intervene_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_tcm_inj_flag IS 'is_tcm_inj_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_antibacterial_inj_flag IS 'is_antibacterial_inj_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_ppi_inj_flag IS 'is_ppi_inj_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_acid_suppress_inj_flag IS 'is_acid_suppress_inj_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_antiemetic_flag IS 'is_antiemetic_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_pn_flag IS 'is_pn_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_single_bottle_pn_flag IS 'is_single_bottle_pn_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_multi_chamber_bag_flag IS 'is_multi_chamber_bag_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.is_all_in_one_pn_flag IS 'is_all_in_one_pn_flag';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.presc_id IS 'presc_id';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.order_id IS 'order_id';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.register_id IS 'register_id';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.admission_id IS 'admission_id';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.NUR_IVADMIX_RECORD.drug_item_id IS 'drug_item_id';
+COMMENT ON TABLE atomic.NUR_IVADMIX_RECORD IS '静配记录表;护理域';
+
+
+DROP TABLE IF EXISTS atomic.ADR_RECORD;
+CREATE TABLE atomic.ADR_RECORD(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    ar_report_code VARCHAR2(64) NULL,
+    ar_report_name VARCHAR2(64) NULL,
+    ar_drug_result_flag VARCHAR2(64) NULL,
+    ar_drug_result_name VARCHAR2(64) NULL,
+    critical_level_code VARCHAR2(64) NULL,
+    critical_level_name VARCHAR2(64) NULL,
+    ar_id VARCHAR2(64) NULL,
+    report_no VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    treat_ser_no VARCHAR2(64) NULL,
+    hosp_no VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.ADR_RECORD.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.ADR_RECORD.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.ADR_RECORD.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.ADR_RECORD.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.ADR_RECORD.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.ADR_RECORD.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.ADR_RECORD.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.ADR_RECORD.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.ADR_RECORD.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.ADR_RECORD.ar_report_code IS 'ar_report_code';
+COMMENT ON COLUMN atomic.ADR_RECORD.ar_report_name IS 'ar_report_name';
+COMMENT ON COLUMN atomic.ADR_RECORD.ar_drug_result_flag IS 'ar_drug_result_flag';
+COMMENT ON COLUMN atomic.ADR_RECORD.ar_drug_result_name IS 'ar_drug_result_name';
+COMMENT ON COLUMN atomic.ADR_RECORD.critical_level_code IS 'critical_level_code';
+COMMENT ON COLUMN atomic.ADR_RECORD.critical_level_name IS 'critical_level_name';
+COMMENT ON COLUMN atomic.ADR_RECORD.ar_id IS 'ar_id';
+COMMENT ON COLUMN atomic.ADR_RECORD.report_no IS 'report_no';
+COMMENT ON COLUMN atomic.ADR_RECORD.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.ADR_RECORD.treat_ser_no IS 'treat_ser_no';
+COMMENT ON COLUMN atomic.ADR_RECORD.hosp_no IS 'hosp_no';
+COMMENT ON TABLE atomic.ADR_RECORD IS '药品不良反应表;不良反应域';
+
+
+DROP TABLE IF EXISTS atomic.SURG_RECORD;
+CREATE TABLE atomic.SURG_RECORD(
+    stat_date VARCHAR2(64) NULL,
+    hospital_code VARCHAR2(64) NULL,
+    hospital_name VARCHAR2(64) NULL,
+    dept_code VARCHAR2(64) NULL,
+    dept_name VARCHAR2(64) NULL,
+    ward_code VARCHAR2(64) NULL,
+    ward_name VARCHAR2(64) NULL,
+    patient_type_code VARCHAR2(64) NULL,
+    patient_type_name VARCHAR2(64) NULL,
+    visit_type_code VARCHAR2(64) NULL,
+    visit_type_name VARCHAR2(64) NULL,
+    sur_code VARCHAR2(64) NULL,
+    sur_name VARCHAR2(64) NULL,
+    sur_level_code VARCHAR2(64) NULL,
+    sur_level_name VARCHAR2(64) NULL,
+    incision_level_code VARCHAR2(64) NULL,
+    incision_level_name VARCHAR2(64) NULL,
+    emergency_sur_code VARCHAR2(64) NULL,
+    anes_method_code VARCHAR2(64) NULL,
+    anes_method_name VARCHAR2(64) NULL,
+    sur_doctor_code VARCHAR2(64) NULL,
+    sur_doctor_name VARCHAR2(64) NULL,
+    room_code VARCHAR2(64) NULL,
+    room_name VARCHAR2(64) NULL,
+    surgery_status VARCHAR2(64) NULL,
+    heal_grade_code VARCHAR2(64) NULL,
+    heal_grade_name VARCHAR2(64) NULL,
+    is_infected VARCHAR2(64) NULL,
+    sur_procedure_id VARCHAR2(64) NULL,
+    patient_id VARCHAR2(64) NULL,
+    treat_ser_no VARCHAR2(64) NULL,
+    hosp_no VARCHAR2(64) NULL,
+    sur_start_at VARCHAR2(64) NULL,
+    sur_end_at VARCHAR2(64) NULL,
+    duration_value VARCHAR2(64) NULL,
+    blood_tran_amount VARCHAR2(64) NULL,
+    implant_amount VARCHAR2(64) NULL
+);
+COMMENT ON COLUMN atomic.SURG_RECORD.stat_date IS 'stat_date';
+COMMENT ON COLUMN atomic.SURG_RECORD.hospital_code IS 'hospital_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.hospital_name IS 'hospital_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.dept_code IS 'dept_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.dept_name IS 'dept_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.ward_code IS 'ward_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.ward_name IS 'ward_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.patient_type_code IS 'patient_type_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.patient_type_name IS 'patient_type_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.visit_type_code IS 'visit_type_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.visit_type_name IS 'visit_type_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_code IS 'sur_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_name IS 'sur_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_level_code IS 'sur_level_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_level_name IS 'sur_level_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.incision_level_code IS 'incision_level_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.incision_level_name IS 'incision_level_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.emergency_sur_code IS 'emergency_sur_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.anes_method_code IS 'anes_method_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.anes_method_name IS 'anes_method_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_doctor_code IS 'sur_doctor_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_doctor_name IS 'sur_doctor_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.room_code IS 'room_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.room_name IS 'room_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.surgery_status IS 'surgery_status';
+COMMENT ON COLUMN atomic.SURG_RECORD.heal_grade_code IS 'heal_grade_code';
+COMMENT ON COLUMN atomic.SURG_RECORD.heal_grade_name IS 'heal_grade_name';
+COMMENT ON COLUMN atomic.SURG_RECORD.is_infected IS 'is_infected';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_procedure_id IS 'sur_procedure_id';
+COMMENT ON COLUMN atomic.SURG_RECORD.patient_id IS 'patient_id';
+COMMENT ON COLUMN atomic.SURG_RECORD.treat_ser_no IS 'treat_ser_no';
+COMMENT ON COLUMN atomic.SURG_RECORD.hosp_no IS 'hosp_no';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_start_at IS 'sur_start_at';
+COMMENT ON COLUMN atomic.SURG_RECORD.sur_end_at IS 'sur_end_at';
+COMMENT ON COLUMN atomic.SURG_RECORD.duration_value IS 'duration_value';
+COMMENT ON COLUMN atomic.SURG_RECORD.blood_tran_amount IS 'blood_tran_amount';
+COMMENT ON COLUMN atomic.SURG_RECORD.implant_amount IS 'implant_amount';
+COMMENT ON TABLE atomic.SURG_RECORD IS '手术记录表;手术用药域';
