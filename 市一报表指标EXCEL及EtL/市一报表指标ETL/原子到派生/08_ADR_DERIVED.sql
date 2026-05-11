@@ -13,7 +13,9 @@ INSERT INTO derived.ADR_DERIVED (
 )
 SELECT
     stat_date, hospital_code, hospital_name,
-    dept_code, dept_name, ward_code, ward_name,
+    dept_code, dept_name,
+    NULL AS ward_code,
+    NULL AS ward_name,
     -- 严重或新的药品不良反应上报数：严重级别为"严重"或"新"的 ar_id 去重计数
         COUNT(DISTINCT CASE WHEN critical_level_code IN ('严重','1','01','新的一般','2','02','新的严重','3','03')
                    OR critical_level_name LIKE '%严重%' OR critical_level_name LIKE '%新%' THEN ar_id END)
@@ -24,6 +26,6 @@ SELECT
         COUNT(DISTINCT CASE WHEN ar_report_code IN ('用药错误','4','04') OR ar_report_name LIKE '%用药错误%' THEN ar_id END)
         AS medication_error_reports
 FROM atomic.ADR_RECORD
-GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name;
+GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name;
 
 COMMIT;

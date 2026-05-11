@@ -90,7 +90,9 @@ FROM (
         -- 急诊就诊患者药品总费用：挂号类型为"急诊"的条目计数
         COUNT(CASE WHEN visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02') THEN 1 END) AS emergency_drug_cost,
         -- 门诊抗菌药物费用：挂号类型为"门诊"且drug_type_code不为空的条目计数
-        COUNT(CASE WHEN drug_type_code IS NOT NULL AND (visit_type_name LIKE '%门诊%' OR visit_type_code IN ('1','01')) THEN 1 END) AS oe_abx_cost
+        COUNT(CASE WHEN drug_type_code IS NOT NULL AND (visit_type_name LIKE '%门诊%' OR visit_type_code IN ('1','01')) THEN 1 END) AS oe_abx_cost,
+        -- 门急诊国家基本药物费用（占位，待替换为实际金额求和）
+        COUNT(*) AS essential_drug_cost
     FROM atomic.FEE_OUTP_VISIT
     GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name
 ) oe
@@ -114,7 +116,9 @@ FULL JOIN (
         -- 住院患者抗菌药物总消耗金额：抗菌药物标志为"1"的条目计数
         COUNT(CASE WHEN is_antibacterial_flag = '1' THEN 1 END) AS total_abx_cost,
         -- 住院抗菌药物费用：抗菌药物标志为"1"的条目计数
-        COUNT(CASE WHEN is_antibacterial_flag = '1' THEN 1 END) AS ip_abx_cost
+        COUNT(CASE WHEN is_antibacterial_flag = '1' THEN 1 END) AS ip_abx_cost,
+        -- 住院国家基本药物费用（占位，待替换为实际金额求和）
+        COUNT(*) AS essential_drug_cost
     FROM atomic.FEE_INP_VISIT
     GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name
 ) ip

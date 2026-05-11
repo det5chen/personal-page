@@ -60,16 +60,18 @@ FROM (
     GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name
 ) ir
 FULL JOIN (
-    -- 门急诊输液统计
+    -- 门急诊输液统计 (NUR_INFUSION_OUTP_RECORD 无 ward_code/ward_name 列，输出 NULL)
     SELECT
         stat_date, hospital_code, hospital_name,
-        dept_code, dept_name, ward_code, ward_name,
+        dept_code, dept_name,
+        NULL AS ward_code,
+        NULL AS ward_name,
         -- 急诊患者静脉输液人数：挂号类型为"急诊"的 register_id 去重计数
         COUNT(DISTINCT CASE WHEN visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02') THEN register_id END) AS emergency_iv,
         -- ⚠️ BUG: 分子 = 急诊静脉输液人数，缺少糖皮质激素过滤条件，与 emergency_iv 相同
         COUNT(DISTINCT CASE WHEN visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02') THEN register_id END) AS glucocorticoid_iv
     FROM atomic.NUR_INFUSION_OUTP_RECORD
-    GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name
+    GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name
 ) or_
 ON ir.stat_date = or_.stat_date AND ir.hospital_code = or_.hospital_code
    AND ir.dept_code = or_.dept_code AND NVL(ir.ward_code,'-') = NVL(or_.ward_code,'-')
