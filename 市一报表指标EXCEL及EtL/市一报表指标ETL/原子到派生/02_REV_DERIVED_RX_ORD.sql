@@ -116,10 +116,10 @@ FULL JOIN (
         COUNT(DISTINCT CASE WHEN is_all_in_one_pn_flag = '1' THEN patient_id END) AS all_in_one_pn,
         -- 住院患者使用抗菌药物人数：抗菌药物标志为"1"的 patient_id 去重计数
         COUNT(DISTINCT CASE WHEN is_antibacterial_flag = '1' THEN patient_id END) AS abx_usage,
-        -- 住院患者抗菌药物DDD消耗总数：抗菌药物条目1相加（近似DDD汇总）
-        SUM(CASE WHEN is_antibacterial_flag = '1' THEN 1 ELSE 0 END) AS abx_ddd,
-        -- 住院患者特殊使用级抗菌药物DDD消耗总数：使用等级为特殊使用级的条目求和
-        SUM(CASE WHEN anti_level_code IN ('特殊使用级','3','03') THEN 1 ELSE 0 END) AS special_abx_ddd,
+        -- 住院患者抗菌药物DDD消耗总数：抗菌药条目 ddd_value 求和
+        SUM(CASE WHEN is_antibacterial_flag = '1' THEN CAST(ddd_value AS NUMERIC) ELSE 0 END) AS abx_ddd,
+        -- 住院患者特殊使用级抗菌药物DDD消耗总数：使用等级为特殊使用级的条目 ddd_value 求和
+        SUM(CASE WHEN anti_level_code IN ('特殊使用级','3','03') THEN CAST(ddd_value AS NUMERIC) ELSE 0 END) AS special_abx_ddd,
         -- 住院患者使用基本药物人数：基本药物标志为"1"的 patient_id 去重计数
         COUNT(DISTINCT CASE WHEN is_basic_drug_flag = '1' THEN patient_id END) AS essential_drug
     FROM atomic.ORD_MED_INP_USAGE

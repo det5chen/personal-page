@@ -32,38 +32,57 @@ SELECT
     COALESCE(rx.dept_name, f.dept_name, e.dept_name, n.dept_name) AS dept_name,
     COALESCE(rx.ward_code, f.ward_code, e.ward_code, n.ward_code) AS ward_code,
     COALESCE(rx.ward_name, f.ward_name, e.ward_name, n.ward_name) AS ward_name,
-    -- [门急诊药占比] 门急诊药品收入 / 门急诊医疗收入 × 100%
-    -- (注：医疗收入已包含药品收入，分母不加药品收入)
-    CASE WHEN TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0')) > 0
+    -- [门急诊药占比] 门急诊药品收入 / (门急诊药品收入 + 门急诊医疗收入) × 100%
+    CASE WHEN (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))) > 0
          THEN TO_CHAR(ROUND(TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
-                      / TO_NUMBER(f.outpatient_emergency_medical_revenue) * 100, 2))
+                      / (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+                       + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))) * 100, 2))
          ELSE '0' END AS outpatient_emergency_drug_ratio,
-    -- [住院药占比] 住院药品收入 / 住院医疗收入 × 100%
-    CASE WHEN TO_NUMBER(NVL(f.inpatient_medical_revenue,'0')) > 0
+    -- [住院药占比] 住院药品收入 / (住院药品收入 + 住院医疗收入) × 100%
+    CASE WHEN (TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) > 0
          THEN TO_CHAR(ROUND(TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
-                      / TO_NUMBER(f.inpatient_medical_revenue) * 100, 2))
+                      / (TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
+                       + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) * 100, 2))
          ELSE '0' END AS inpatient_drug_ratio,
-    -- [药占比-综合] (门急诊药品收入+住院药品收入) / (门急诊医疗收入+住院医疗收入) × 100%
-    CASE WHEN (TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+    -- [药占比-综合] (门急诊药品收入+住院药品收入) / 医疗总收入 × 100%
+    -- 医疗总收入 = 门急诊药品+门急诊医疗+住院药品+住院医疗
+    CASE WHEN (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
              + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) > 0
          THEN TO_CHAR(ROUND(
             (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0')) + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0')))
-            / (TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0')) + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) * 100, 2))
+            / (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) * 100, 2))
          ELSE '0' END AS drug_ratio,
     -- [耗占比] (门急诊卫生材料收入+住院卫生材料收入) / 医疗总收入 × 100%
-    CASE WHEN (TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+    CASE WHEN (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
              + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) > 0
          THEN TO_CHAR(ROUND(
             (TO_NUMBER(NVL(f.outpatient_emergency_supplies_revenue,'0')) + TO_NUMBER(NVL(f.inpatient_supplies_revenue,'0')))
-            / (TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0')) + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) * 100, 2))
+            / (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) * 100, 2))
          ELSE '0' END AS supplies_ratio,
     -- [药耗占比] (药品总收入+卫生材料总收入) / 医疗总收入 × 100%
-    CASE WHEN (TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+    CASE WHEN (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
              + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) > 0
          THEN TO_CHAR(ROUND(
             (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0')) + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
             + TO_NUMBER(NVL(f.outpatient_emergency_supplies_revenue,'0')) + TO_NUMBER(NVL(f.inpatient_supplies_revenue,'0')))
-            / (TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0')) + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) * 100, 2))
+            / (TO_NUMBER(NVL(f.outpatient_emergency_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.outpatient_emergency_medical_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_drug_revenue,'0'))
+             + TO_NUMBER(NVL(f.inpatient_medical_revenue,'0'))) * 100, 2))
          ELSE '0' END AS drug_and_supplies_ratio,
     -- [住院患者中药注射剂使用率] 使用中药注射剂人数 / 出院人数 × 100%
     CASE WHEN TO_NUMBER(NVL(e.discharges,'0')) > 0
@@ -119,10 +138,12 @@ SELECT
          THEN TO_CHAR(ROUND(TO_NUMBER(NVL(rx.total_inpatient_special_grade_antibiotic_ddd,'0'))
                       / TO_NUMBER(e.total_inpatient_occupied_bed_days) * 100, 2))
          ELSE '0' END AS inpatient_special_grade_antibiotic_intensity,
-    -- [住院患者特殊使用级抗菌药物使用量占比] 特殊使用级抗菌药物金额 / 抗菌药物总金额 × 100%
-    CASE WHEN TO_NUMBER(NVL(f.total_inpatient_antibiotic_cost,'0')) > 0
-         THEN TO_CHAR(ROUND(TO_NUMBER(NVL(f.inpatient_special_grade_antibiotic_cost,'0'))
-                      / TO_NUMBER(f.total_inpatient_antibiotic_cost) * 100, 2))
+    -- [住院患者特殊使用级抗菌药物使用量占比] 特殊使用级抗菌药物DDD / 抗菌药物总DDD × 100%
+    -- 修复：原SQL错误使用FEE_DERIVED的金额字段(f.inpatient_special_grade_antibiotic_cost/f.total_inpatient_antibiotic_cost)
+    --       正确公式应为RX_ORD的DDD字段(rx.total_inpatient_special_grade_antibiotic_ddd/rx.total_inpatient_antibiotic_ddd)
+    CASE WHEN TO_NUMBER(NVL(rx.total_inpatient_antibiotic_ddd,'0')) > 0
+         THEN TO_CHAR(ROUND(TO_NUMBER(NVL(rx.total_inpatient_special_grade_antibiotic_ddd,'0'))
+                      / TO_NUMBER(rx.total_inpatient_antibiotic_ddd) * 100, 2))
          ELSE '0' END AS inpatient_special_grade_antibiotic_usage_ratio
 FROM derived.REV_DERIVED_RX_ORD rx
 FULL JOIN derived.FEE_DERIVED f

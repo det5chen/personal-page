@@ -23,10 +23,8 @@ SELECT
     e.dept_code, e.dept_name, e.ward_code, e.ward_name,
     e.outpatient_visits, e.emergency_visits,
     e.outpatient_emergency_visits, e.discharges, e.admissions,
-    -- 总诊疗人次数 = 门诊 + 急诊 + 入院
-    -- ⚠️ 公式要求还需包括"出诊人次"+"健康检查人次"+"健康咨询人次"，但 derived.ENC_DERIVED 表无相关字段
-    TO_CHAR(TO_NUMBER(NVL(e.outpatient_visits,'0')) + TO_NUMBER(NVL(e.emergency_visits,'0')) + TO_NUMBER(NVL(e.admissions,'0')))
-        AS total_visits,
+    -- 总诊疗人次数 = 门诊人次 + 急诊人次 + 入院人次
+    TO_CHAR(TO_NUMBER(NVL(e.outpatient_visits,'0')) + TO_NUMBER(NVL(e.emergency_visits,'0')) + TO_NUMBER(NVL(e.admissions,'0'))) AS total_visits,
     e.actual_open_beds,
     -- 门诊使用基本药物人次比 = 门诊使用基本药物人次 / 门诊就诊人次数
     CASE WHEN TO_NUMBER(NVL(e.outpatient_visits,'0')) > 0

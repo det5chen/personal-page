@@ -48,8 +48,8 @@ FULL JOIN (
     SELECT
         stat_date, hospital_code, hospital_name,
         dept_code, dept_name, ward_code, ward_name,
-        -- 出院人数：有出院方式的 admission_id 去重计数 (Oracle中''=NULL，IS NOT NULL已覆盖空串判断)
-        COUNT(DISTINCT CASE WHEN discharge_way_code IS NOT NULL THEN admission_id END) AS discharges,
+        -- 出院人数：有出院方式的 admission_id 去重计数
+        COUNT(DISTINCT CASE WHEN discharge_way_code IS NOT NULL AND discharge_way_code <> '' THEN admission_id END) AS discharges,
         -- 入院人数：admission_id 去重计数
         COUNT(DISTINCT admission_id) AS admissions,
         -- 非手术住院患者人数：手术标志为"0"的 admission_id 去重计数

@@ -24,19 +24,18 @@ SELECT
     COUNT(DISTINCT CASE WHEN (incision_level_name LIKE '%Ⅰ%' OR incision_level_code IN ('1','01','I'))
                         AND mi.patient_id IS NOT NULL THEN s.sur_procedure_id END)
         AS type_1_incision_prophylactic_antibiotic_cases,
-    -- ⚠️ BUG: 下面这个 CASE WHEN 和上面的 `type_1_incision_prophylactic_antibiotic_cases` 完全一样
-    --     缺少 `AND 用药时长<=24小时` 的条件过滤，导致分子分母始终相同
-    --     修正需在 mi 子查询中加入持续时间过滤，或改用其他字段识别 ≤24h 的用例
+    -- Ⅰ类切口手术静脉预防使用抗菌药物时长≤24小时台数：Ⅰ类切口 + 有抗菌药 + 用药时长≤24h
     COUNT(DISTINCT CASE WHEN (incision_level_name LIKE '%Ⅰ%' OR incision_level_code IN ('1','01','I'))
-                        AND mi.patient_id IS NOT NULL THEN s.sur_procedure_id END)
+                        AND mi.patient_id IS NOT NULL
+                        AND CAST(s.antibiotic_duration_hours AS NUMERIC) <= 24 THEN s.sur_procedure_id END)
         AS type_1_incision_iv_antibiotic_leq_24h_cases,
     COUNT(DISTINCT CASE WHEN (incision_level_name LIKE '%Ⅱ%' OR incision_level_code IN ('2','02','II'))
                         AND mi.patient_id IS NOT NULL THEN s.sur_procedure_id END)
         AS type_2_incision_prophylactic_antibiotic_cases,
-    -- ⚠️ BUG: 和上面的 `type_2_incision_prophylactic_antibiotic_cases` 完全一样
-    --     缺少 ≤24h 过滤条件
+    -- Ⅱ类切口手术静脉预防使用抗菌药物时长≤24小时台数：Ⅱ类切口 + 有抗菌药 + 用药时长≤24h
     COUNT(DISTINCT CASE WHEN (incision_level_name LIKE '%Ⅱ%' OR incision_level_code IN ('2','02','II'))
-                        AND mi.patient_id IS NOT NULL THEN s.sur_procedure_id END)
+                        AND mi.patient_id IS NOT NULL
+                        AND CAST(s.antibiotic_duration_hours AS NUMERIC) <= 24 THEN s.sur_procedure_id END)
         AS type_2_incision_iv_antibiotic_leq_24h_cases
 FROM atomic.SURG_RECORD s
 LEFT JOIN (

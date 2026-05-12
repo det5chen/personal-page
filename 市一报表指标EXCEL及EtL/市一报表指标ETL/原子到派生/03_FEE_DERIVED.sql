@@ -74,25 +74,28 @@ FROM (
     SELECT
         stat_date, hospital_code, hospital_name,
         dept_code, dept_name, ward_code, ward_name,
-        -- ⚠️ 以下 COUNT(*) 为占位，应替换为 SUM(实际金额字段)
-        COUNT(*) AS drug_rev,                    -- 门急诊药品收入（待替换为金额求和）
-        COUNT(*) AS oe_drug_rev,                 -- 门诊药品收入（待替换为金额求和）
-        COUNT(*) AS medical_rev,                 -- 门急诊医疗收入（待替换为金额求和）
-        COUNT(*) AS supplies_rev,                -- 门急诊卫生材料收入（待替换为金额求和）
-        -- 门急诊辅助用药收入：辅助用药标志为"1"的条目计数
-        COUNT(CASE WHEN is_assist_drug_flag = '1' THEN 1 END) AS adjuvant_rev,
-        -- 门急诊重点监控药品收入：重点监控药品标志为"1"的条目计数
-        COUNT(CASE WHEN is_key_monitor_drug_flag = '1' THEN 1 END) AS key_monitor_rev,
-        -- 门急诊自费药品收入：自费药品标志为"1"的条目计数
-        COUNT(CASE WHEN is_self_pay_drug_flag = '1' THEN 1 END) AS self_pay_rev,
-        -- 门诊就诊患者药品总费用：挂号类型为"门诊"的条目计数
-        COUNT(CASE WHEN visit_type_name LIKE '%门诊%' OR visit_type_code IN ('1','01') THEN 1 END) AS oe_drug_cost,
-        -- 急诊就诊患者药品总费用：挂号类型为"急诊"的条目计数
-        COUNT(CASE WHEN visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02') THEN 1 END) AS emergency_drug_cost,
-        -- 门诊抗菌药物费用：挂号类型为"门诊"且drug_type_code不为空的条目计数
-        COUNT(CASE WHEN drug_type_code IS NOT NULL AND (visit_type_name LIKE '%门诊%' OR visit_type_code IN ('1','01')) THEN 1 END) AS oe_abx_cost,
-        -- 门急诊国家基本药物费用（占位，待替换为实际金额求和）
-        COUNT(*) AS essential_drug_cost
+        -- 门急诊药品收入：charge_type_code 为药品类的 amount 求和
+        SUM(CASE WHEN charge_type_code IN ('drug','药品','01') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS drug_rev,
+        -- 门诊药品收入：挂号类型为"门诊"且药品类的 amount 求和
+        SUM(CASE WHEN charge_type_code IN ('drug','药品','01') AND (visit_type_name LIKE '%门诊%' OR visit_type_code IN ('1','01')) THEN CAST(amount AS NUMERIC) ELSE 0 END) AS oe_drug_rev,
+        -- 门急诊医疗收入：charge_type_code 非药品/材料的 amount 求和
+        SUM(CASE WHEN charge_type_code NOT IN ('drug','药品','01','supplies','卫生材料','02') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS medical_rev,
+        -- 门急诊卫生材料收入：charge_type_code 为卫生材料类的 amount 求和
+        SUM(CASE WHEN charge_type_code IN ('supplies','卫生材料','02') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS supplies_rev,
+        -- 门急诊辅助用药收入
+        SUM(CASE WHEN is_assist_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS adjuvant_rev,
+        -- 门急诊重点监控药品收入
+        SUM(CASE WHEN is_key_monitor_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS key_monitor_rev,
+        -- 门急诊自费药品收入
+        SUM(CASE WHEN is_self_pay_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS self_pay_rev,
+        -- 门诊就诊患者药品总费用
+        SUM(CASE WHEN visit_type_name LIKE '%门诊%' OR visit_type_code IN ('1','01') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS oe_drug_cost,
+        -- 急诊就诊患者药品总费用
+        SUM(CASE WHEN visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS emergency_drug_cost,
+        -- 门诊抗菌药物费用
+        SUM(CASE WHEN drug_type_code IS NOT NULL AND (visit_type_name LIKE '%门诊%' OR visit_type_code IN ('1','01')) THEN CAST(amount AS NUMERIC) ELSE 0 END) AS oe_abx_cost,
+        -- 门急诊国家基本药物费用
+        SUM(CASE WHEN is_basic_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS essential_drug_cost
     FROM atomic.FEE_OUTP_VISIT
     GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name
 ) oe
@@ -101,24 +104,26 @@ FULL JOIN (
     SELECT
         stat_date, hospital_code, hospital_name,
         dept_code, dept_name, ward_code, ward_name,
-        -- ⚠️ 以下 COUNT(*) 为占位，应替换为 SUM(实际金额字段)
-        COUNT(*) AS drug_rev,                    -- 住院药品收入（待替换为金额求和）
-        COUNT(*) AS medical_rev,                 -- 住院医疗收入（待替换为金额求和）
-        COUNT(*) AS supplies_rev,                -- 住院卫生材料收入（待替换为金额求和）
-        -- 住院辅助用药收入：辅助用药标志为"1"的条目计数
-        COUNT(CASE WHEN is_assist_drug_flag = '1' THEN 1 END) AS adjuvant_rev,
-        -- 住院重点监控药品收入：重点监控药品标志为"1"的条目计数
-        COUNT(CASE WHEN is_key_monitor_drug_flag = '1' THEN 1 END) AS key_monitor_rev,
-        -- 住院自费药品收入：自费药品标志为"1"的条目计数
-        COUNT(CASE WHEN is_self_pay_drug_flag = '1' THEN 1 END) AS self_pay_rev,
-        -- 住院患者特殊使用级抗菌药物消耗金额：抗菌等级为"特殊使用级"的条目计数
-        COUNT(CASE WHEN anti_level_code IN ('特殊使用级','3','03') THEN 1 END) AS special_abx_cost,
-        -- 住院患者抗菌药物总消耗金额：抗菌药物标志为"1"的条目计数
-        COUNT(CASE WHEN is_antibacterial_flag = '1' THEN 1 END) AS total_abx_cost,
-        -- 住院抗菌药物费用：抗菌药物标志为"1"的条目计数
-        COUNT(CASE WHEN is_antibacterial_flag = '1' THEN 1 END) AS ip_abx_cost,
-        -- 住院国家基本药物费用（占位，待替换为实际金额求和）
-        COUNT(*) AS essential_drug_cost
+        -- 住院药品收入：charge_type_code 为药品类的 amount 求和
+        SUM(CASE WHEN charge_type_code IN ('drug','药品','01') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS drug_rev,
+        -- 住院医疗收入：charge_type_code 非药品/材料的 amount 求和
+        SUM(CASE WHEN charge_type_code NOT IN ('drug','药品','01','supplies','卫生材料','02') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS medical_rev,
+        -- 住院卫生材料收入：charge_type_code 为卫生材料类的 amount 求和
+        SUM(CASE WHEN charge_type_code IN ('supplies','卫生材料','02') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS supplies_rev,
+        -- 住院辅助用药收入
+        SUM(CASE WHEN is_assist_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS adjuvant_rev,
+        -- 住院重点监控药品收入
+        SUM(CASE WHEN is_key_monitor_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS key_monitor_rev,
+        -- 住院自费药品收入
+        SUM(CASE WHEN is_self_pay_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS self_pay_rev,
+        -- 住院患者特殊使用级抗菌药物消耗金额
+        SUM(CASE WHEN anti_level_code IN ('特殊使用级','3','03') THEN CAST(amount AS NUMERIC) ELSE 0 END) AS special_abx_cost,
+        -- 住院患者抗菌药物总消耗金额
+        SUM(CASE WHEN is_antibacterial_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS total_abx_cost,
+        -- 住院抗菌药物费用
+        SUM(CASE WHEN is_antibacterial_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS ip_abx_cost,
+        -- 住院国家基本药物费用
+        SUM(CASE WHEN is_basic_drug_flag = '1' THEN CAST(amount AS NUMERIC) ELSE 0 END) AS essential_drug_cost
     FROM atomic.FEE_INP_VISIT
     GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name
 ) ip

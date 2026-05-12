@@ -53,8 +53,8 @@ FROM (
         COUNT(DISTINCT CASE WHEN is_surgery_flag IS NULL OR is_surgery_flag = '0' THEN patient_id END) AS non_surgical_iv,
         -- 住院患者输液总床日：bed_id 与日期拼接后去重计数
         COUNT(DISTINCT bed_id || stat_date) AS infusion_bed_days,
-        COUNT(*) AS iv_volume,
-        COUNT(*) AS iv_bags,
+        SUM(CAST(actual_volume_ml AS NUMERIC)) AS iv_volume,
+        SUM(CAST(actual_bag_count AS NUMERIC)) AS iv_bags,
         COUNT(DISTINCT drug_item_id) AS iv_drug_types
     FROM atomic.NUR_INFUSION_INP_RECORD
     GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name, ward_code, ward_name
@@ -68,8 +68,8 @@ FULL JOIN (
         NULL AS ward_name,
         -- 急诊患者静脉输液人数：挂号类型为"急诊"的 register_id 去重计数
         COUNT(DISTINCT CASE WHEN visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02') THEN register_id END) AS emergency_iv,
-        -- ⚠️ BUG: 分子 = 急诊静脉输液人数，缺少糖皮质激素过滤条件，与 emergency_iv 相同
-        COUNT(DISTINCT CASE WHEN visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02') THEN register_id END) AS glucocorticoid_iv
+        -- 急诊患者使用糖皮质激素静脉输液人数：急诊 + 糖皮质激素标志为"1"的 register_id 去重计数
+        COUNT(DISTINCT CASE WHEN (visit_type_name LIKE '%急诊%' OR visit_type_code IN ('2','02')) AND is_glucocorticoid_flag = '1' THEN register_id END) AS glucocorticoid_iv
     FROM atomic.NUR_INFUSION_OUTP_RECORD
     GROUP BY stat_date, hospital_code, hospital_name, dept_code, dept_name
 ) or_
@@ -81,7 +81,8 @@ FULL JOIN (
         stat_date, hospital_code, hospital_name,
         dept_code, dept_name, ward_code, ward_name,
         COUNT(DISTINCT drug_item_id) AS total_preps,
-        COUNT(*) AS total_additive,
+        -- 加药配制数量：is_additive_flag 为"1"的药品明细去重计数
+        COUNT(DISTINCT CASE WHEN is_additive_flag = '1' THEN drug_item_id END) AS total_additive,
         -- 静脉用药集中调配干预医嘱数：静配干预标志为"1"的 order_id 去重计数
         COUNT(DISTINCT CASE WHEN is_iv_intervene_flag = '1' THEN order_id END) AS intervened,
         -- 静脉用药集中调配总审核医嘱数：静配审核标志为"1"的 order_id 去重计数
