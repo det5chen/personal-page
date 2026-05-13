@@ -38,15 +38,12 @@
 |---|---|---|
 | total_type_i_incision_surgeries | sur_procedure_id | incision_level_name LIKE '%Ⅰ%' OR incision_level_code='1' |
 | type_1_incision_prophylactic_antibiotic_cases | sur_procedure_id | Ⅰ类 + 有抗菌药关联记录(m.patient_id IS NOT NULL) |
-| type_1_incision_iv_antibiotic_leq_24h_cases | sur_procedure_id | ⚠ **同上，缺≤24h时间过滤** |
+| type_1_incision_iv_antibiotic_leq_24h_cases | sur_procedure_id | Ⅰ类 + 有抗菌药关联 + CAST(antibiotic_duration_hours AS NUMERIC) <= 24 |
 | type_2_incision_prophylactic_antibiotic_cases | sur_procedure_id | incision_level_name LIKE '%Ⅱ%' + 有抗菌药关联 |
-| type_2_incision_iv_antibiotic_leq_24h_cases | sur_procedure_id | ⚠ **同上，缺≤24h时间过滤** |
+| type_2_incision_iv_antibiotic_leq_24h_cases | sur_procedure_id | Ⅱ类 + 有抗菌药关联 + CAST(antibiotic_duration_hours AS NUMERIC) <= 24 |
 
 ---
 
 ## 四、已知问题
 
-| 编号 | 严重程度 | 描述 |
-|---|---|---|
-| BUG-1 | 🔴 高 | type_1_incision_iv_antibiotic_leq_24h_cases 与 prophylactic 字段逻辑完全相同，缺少对抗菌药物使用时长≤24h的时间过滤条件，导致分子=分母，比例永远=100% |
-| BUG-2 | 🔴 高 | type_2_incision_iv_antibiotic_leq_24h_cases 同样缺≤24h过滤 |
+无。

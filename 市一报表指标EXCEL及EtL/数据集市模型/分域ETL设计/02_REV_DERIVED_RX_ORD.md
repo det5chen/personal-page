@@ -72,8 +72,8 @@
 | inpatients_using_multi_chamber_bag_pn | ORD_MED_INP_USAGE | COUNT(DISTINCT patient_id) WHERE is_multi_chamber_bag_flag='1' |
 | inpatients_using_all_in_one_pn | ORD_MED_INP_USAGE | COUNT(DISTINCT patient_id) WHERE is_all_in_one_pn_flag='1' |
 | inpatients_using_antibiotics | ORD_MED_INP_USAGE | COUNT(DISTINCT patient_id) WHERE is_antibacterial_flag='1' |
-| total_inpatient_antibiotic_ddd | ORD_MED_INP_USAGE | ⚠ SUM(1) WHERE is_antibacterial='1'（近似） |
-| total_inpatient_special_grade_antibiotic_ddd | ORD_MED_INP_USAGE | ⚠ SUM(1) WHERE anti_level=特殊级（近似） |
+| total_inpatient_antibiotic_ddd | ORD_MED_INP_USAGE | SUM(CAST(ddd_value AS NUMERIC)) WHERE is_antibacterial_flag='1' |
+| total_inpatient_special_grade_antibiotic_ddd | ORD_MED_INP_USAGE | SUM(CAST(ddd_value AS NUMERIC)) WHERE anti_level_code IN ('特殊使用级','3','03') |
 | outpatient_essential_drug_visits | ORD_MED_OUTP_USAGE | COUNT(DISTINCT register_id) WHERE is_basic_drug='1' |
 | outpatient_essential_drug_prescriptions | ORD_MED_OUTP_USAGE | COUNT(DISTINCT presc_id) WHERE is_basic_drug='1' |
 | inpatients_using_essential_drugs | ORD_MED_INP_USAGE | COUNT(DISTINCT patient_id) WHERE is_basic_drug='1' |
@@ -82,6 +82,4 @@
 
 ## 四、已知问题
 
-| 编号 | 严重程度 | 描述 |
-|---|---|---|
-| MIS-5 | 🟢 低 | DDD使用 SUM(1) 近似计算，应使用实际 ddd_value 字段求和 |
+无。

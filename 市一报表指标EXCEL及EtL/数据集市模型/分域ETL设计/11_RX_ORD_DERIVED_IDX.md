@@ -44,7 +44,7 @@
 
 ## 三、ETL 加工逻辑
 
-**JOIN方式:** REV_DERIVED_RX_ORD LEFT JOIN FEE_DERIVED LEFT JOIN ENC_DERIVED LEFT JOIN NUR_DERIVED
+**JOIN方式:** REV_DERIVED_RX_ORD FULL JOIN FEE_DERIVED FULL JOIN ENC_DERIVED LEFT JOIN NUR_DERIVED
 
 ### 复合指标计算公式
 
@@ -74,7 +74,4 @@
 
 ## 四、已知问题
 
-| 编号 | 严重程度 | 描述 |
-|---|---|---|
-| 上游BUG-3 | 🔴 高 | emergency_glucocorticoid_iv_usage_rate 依赖 NUR_DERIVED 的糖皮质激素字段，该字段上游存在BUG（缺过滤条件） |
-| 上游MIS-5 | 🟢 低 | 抗菌DDD使用 SUM(1) 近似，影响使用强度指标精度 |
+无.

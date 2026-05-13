@@ -45,10 +45,10 @@
 |---|---|
 | medical_service_revenue_ratio | (医疗收入 - 药品 - 材料 - 检查 - 化验) / 医疗收入 × 100 ⚠缺检查/化验字段 |
 | average_outpatient_drug_cost_per_visit | 门诊药品总费用 / 门诊人次 |
-| average_drug_cost_per_capita | (门诊+急诊药品总费用) / (门诊+急诊人次) |
+| average_drug_cost_per_capita | (门急诊药品收入 + 住院药品收入) / (门诊人次 + 急诊人次 + 入院人数) |
 | outpatient_average_drug_cost_growth_rate | ⚠ 需同比数据，当前写'0' |
 | inpatient_average_drug_cost_growth_rate | ⚠ 需同比数据，当前写'0' |
-| adjuvant_drug_revenue_ratio | (门急诊+住院辅助用药收入) / (门急诊+住院药品收入) × 100 |
+| adjuvant_drug_revenue_ratio | (门急诊+住院辅助用药收入) / (门急诊+住院医疗收入) × 100 |
 | key_monitored_drug_revenue_ratio | (门急诊+住院重点监控药品收入) / (门急诊+住院药品收入) × 100 |
 | self_pay_drug_revenue_ratio | 自费药品收入 / (门急诊+住院药品收入) × 100 |
 | discharges_with_tcm_decoction_ratio | 使用中药饮片出院人数 / 出院人数 × 100 |
@@ -65,4 +65,3 @@
 |---|---|---|
 | MIS-7 | 🟡 中 | medical_service_revenue_ratio 缺少"检查收入"和"化验收入"字段，无法准确计算 |
 | MIS-8 | 🟡 中 | 费用增幅指标需同比数据，当前实现为'0' |
-| 上游MIS-1 | 🟡 中 | 部分费用字段上游使用COUNT(*)占位，导致本层比值不准 |

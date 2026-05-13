@@ -43,32 +43,34 @@
 
 ## 三、ETL 加工逻辑
 
-**JOIN方式:** FULL JOIN 两路 (FEE_OUTP_VISIT + FEE_INP_VISIT)
+**JOIN方式:** FULL JOIN 两路 (FEE_OUTP_VISIT oe + FEE_INP_VISIT ip)
+
+**JOIN键:** `stat_date + hospital_code + dept_code + NVL(ward_code, '-')`
 
 ### 字段计算明细
 
-| 目标字段 | 来源 | 条件 | 状态 |
-|---|---|---|---|
-| outpatient_emergency_drug_revenue | FEE_OUTP_VISIT | charge_type=药品 | ⚠ COUNT(*) 占位 |
-| outpatient_emergency_medical_revenue | FEE_OUTP_VISIT | charge_type=医疗 | ⚠ COUNT(*) 占位 |
-| inpatient_drug_revenue | FEE_INP_VISIT | charge_type=药品 | ⚠ COUNT(*) 占位 |
-| inpatient_medical_revenue | FEE_INP_VISIT | charge_type=医疗 | ⚠ COUNT(*) 占位 |
-| outpatient_emergency_supplies_revenue | FEE_OUTP_VISIT | charge_type=材料 | ⚠ COUNT(*) 占位 |
-| inpatient_supplies_revenue | FEE_INP_VISIT | charge_type=材料 | ⚠ COUNT(*) 占位 |
-| outpatient_drug_revenue | FEE_OUTP_VISIT | 门诊+药品 | ⚠ COUNT(*) 占位 |
-| outpatient_emergency_adjuvant_drug_revenue | FEE_OUTP_VISIT | is_assist_drug_flag='1' | ✅ |
-| inpatient_adjuvant_drug_revenue | FEE_INP_VISIT | is_assist_drug_flag='1' | ✅ |
-| outpatient_emergency_key_monitored_drug_revenue | FEE_OUTP_VISIT | is_key_monitor_drug_flag='1' | ✅ |
-| inpatient_key_monitored_drug_revenue | FEE_INP_VISIT | is_key_monitor_drug_flag='1' | ✅ |
-| self_pay_drug_revenue | FEE_OUTP + FEE_INP | is_self_pay_drug_flag='1' | ✅ |
-| total_outpatient_drug_cost | FEE_OUTP_VISIT | visit_type=门诊 | ✅ |
-| total_emergency_drug_cost | FEE_OUTP_VISIT | visit_type=急诊 | ✅ |
-| inpatient_special_grade_antibiotic_cost | FEE_INP_VISIT | anti_level=特殊级 | ✅ |
-| total_inpatient_antibiotic_cost | FEE_INP_VISIT | is_antibacterial='1' | ✅ |
-| outpatient_antibiotic_cost | FEE_OUTP_VISIT | 门诊 + drug_type非空 | ✅ |
-| inpatient_antibiotic_cost | FEE_INP_VISIT | is_antibacterial='1' | ✅ |
-| outpatient_emergency_essential_drug_cost | — | — | ⚠ 未实现 |
-| inpatient_essential_drug_cost | — | — | ⚠ 未实现 |
+| 目标字段 | 来源 | 计算公式 |
+|---|---|---|
+| outpatient_emergency_drug_revenue | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE charge_type_code IN ('drug','药品','01') |
+| outpatient_emergency_medical_revenue | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE charge_type_code NOT IN 药品/材料 |
+| inpatient_drug_revenue | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE charge_type_code IN ('drug','药品','01') |
+| inpatient_medical_revenue | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE charge_type_code NOT IN 药品/材料 |
+| outpatient_emergency_supplies_revenue | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE charge_type_code IN ('supplies','卫生材料','02') |
+| inpatient_supplies_revenue | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE charge_type_code IN ('supplies','卫生材料','02') |
+| outpatient_drug_revenue | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE 药品 + visit_type=门诊 |
+| outpatient_emergency_adjuvant_drug_revenue | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_assist_drug_flag='1' |
+| inpatient_adjuvant_drug_revenue | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_assist_drug_flag='1' |
+| outpatient_emergency_key_monitored_drug_revenue | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_key_monitor_drug_flag='1' |
+| inpatient_key_monitored_drug_revenue | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_key_monitor_drug_flag='1' |
+| self_pay_drug_revenue | FEE_OUTP + FEE_INP | NVL(oe.self_pay_rev,0) + NVL(ip.self_pay_rev,0) WHERE is_self_pay_drug_flag='1' |
+| total_outpatient_drug_cost | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE visit_type=门诊 |
+| total_emergency_drug_cost | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE visit_type=急诊 |
+| inpatient_special_grade_antibiotic_cost | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE anti_level_code IN ('特殊使用级','3','03') |
+| total_inpatient_antibiotic_cost | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_antibacterial_flag='1' |
+| outpatient_antibiotic_cost | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE drug_type_code IS NOT NULL + visit_type=门诊 |
+| inpatient_antibiotic_cost | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_antibacterial_flag='1' |
+| outpatient_emergency_essential_drug_cost | FEE_OUTP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_basic_drug_flag='1' |
+| inpatient_essential_drug_cost | FEE_INP_VISIT | SUM(CAST(amount AS NUMERIC)) WHERE is_basic_drug_flag='1' |
 
 ---
 
@@ -76,5 +78,4 @@
 
 | 编号 | 严重程度 | 描述 |
 |---|---|---|
-| MIS-1 | 🟡 中 | 7个金额字段使用 COUNT(*) 占位，应替换为 SUM(amount) |
-| MIS-2 | 🟡 中 | 基本药物费用字段 DDL有定义但INSERT未实现 |
+| NOTE-1 | � 低 | outpatient_antibiotic_cost 用 drug_type_code IS NOT NULL 作为门诊抗菌药物过滤条件，建议统一改为 is_antibacterial_flag='1' |

@@ -44,8 +44,8 @@
 | inpatient_iv_infusion_usage_rate | 住院输液人数/出院人数×100 | NUR.inpatient_patients_with_iv_infusion | ENC.discharges |
 | non_surgical_inpatient_iv_infusion_rate | 非手术输液人数/非手术住院人数×100 | NUR.non_surgical_inpatients_with_iv_infusion | ENC.non_surgical_inpatients |
 | inpatient_iv_infusion_bed_days_ratio | 输液总床日/占用总床日×100 | NUR.total_inpatient_infusion_bed_days | ENC.total_inpatient_occupied_bed_days |
-| average_iv_volume_per_bed_day | 输液总体积/输液总床日 | NUR.total_inpatient_iv_volume_ml | NUR.total_inpatient_infusion_bed_days |
-| average_iv_quantity_per_bed_day | 输液总数量/输液总床日 | NUR.total_inpatient_iv_bags_bottles | NUR.total_inpatient_infusion_bed_days |
+| average_iv_volume_per_bed_day | 输液总体积(ml)/实际占用总床日 | NUR.total_inpatient_iv_volume_ml | ENC.total_inpatient_occupied_bed_days |
+| average_iv_quantity_per_bed_day | 输液总数量(瓶/袋)/实际占用总床日 | NUR.total_inpatient_iv_bags_bottles | ENC.total_inpatient_occupied_bed_days |
 | average_iv_drug_varieties_per_inpatient | 静脉药品种数/住院输液人数 | NUR.total_inpatient_iv_drug_types | NUR.inpatient_patients_with_iv_infusion |
 | total_civs_preparations | 直接取 NUR.total_civs_preparations | — | — |
 | total_civs_additive_preparations | 直接取 NUR.total_civs_additive_preparations | — | — |
@@ -59,4 +59,3 @@
 | 编号 | 严重程度 | 描述 |
 |---|---|---|
 | MIS-10 | 🟡 中 | inpatient_iv_pump_usage_rate 数据当前不可得，写'0' |
-| 上游MIS-3 | 🟡 中 | 输液体积/数量上游为COUNT(*)占位，影响 average_iv_volume/quantity 准确性 |

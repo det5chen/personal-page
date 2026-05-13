@@ -46,21 +46,17 @@
 | inpatient_patients_with_iv_infusion | NUR_INFUSION_INP_RECORD | patient_id | — | ✅ |
 | non_surgical_inpatients_with_iv_infusion | NUR_INFUSION_INP_RECORD | patient_id | is_surgery_flag='0' | ✅ |
 | total_inpatient_infusion_bed_days | NUR_INFUSION_INP_RECORD | bed_id+stat_date | — | ✅ |
-| total_inpatient_iv_volume_ml | NUR_INFUSION_INP_RECORD | — | — | ⚠ COUNT(*)占位 |
-| total_inpatient_iv_bags_bottles | NUR_INFUSION_INP_RECORD | — | — | ⚠ COUNT(*)占位 |
+| total_inpatient_iv_volume_ml | NUR_INFUSION_INP_RECORD | — | — | SUM(CAST(actual_volume_ml AS NUMERIC)) |
+| total_inpatient_iv_bags_bottles | NUR_INFUSION_INP_RECORD | — | — | SUM(CAST(actual_bag_count AS NUMERIC)) |
 | total_inpatient_iv_drug_types | NUR_INFUSION_INP_RECORD | drug_item_id | — | ✅ |
 | total_civs_preparations | NUR_IVADMIX_RECORD | drug_item_id | — | ✅ |
-| total_civs_additive_preparations | NUR_IVADMIX_RECORD | — | — | ⚠ COUNT(*)占位 |
+| total_civs_additive_preparations | NUR_IVADMIX_RECORD | drug_item_id | is_additive_flag='1' | COUNT(DISTINCT CASE WHEN is_additive_flag='1' THEN drug_item_id END) |
 | civs_intervened_orders | NUR_IVADMIX_RECORD | order_id | is_iv_intervene_flag='1' | ✅ |
 | civs_total_reviewed_orders | NUR_IVADMIX_RECORD | order_id | is_iv_audit_flag='1' | ✅ |
-| emergency_patients_with_glucocorticoid_iv | NUR_INFUSION_OUTP_RECORD | register_id | ⚠ **与急诊输液人数完全相同** | ⚠ BUG |
+| emergency_patients_with_glucocorticoid_iv | NUR_INFUSION_OUTP_RECORD | register_id | 急诊 + is_glucocorticoid_flag='1' | ✅ |
 
 ---
 
 ## 四、已知问题
 
-| 编号 | 严重程度 | 描述 |
-|---|---|---|
-| BUG-3 | 🔴 高 | emergency_patients_with_glucocorticoid_iv 与 emergency_patients_with_iv_infusion 逻辑完全相同，缺糖皮质激素标志位过滤 |
-| MIS-3 | 🟡 中 | total_inpatient_iv_volume_ml / total_inpatient_iv_bags_bottles 使用 COUNT(*) 占位，应为 SUM(volume) / SUM(quantity) |
-| MIS-4 | 🟡 中 | total_civs_additive_preparations 使用 COUNT(*) 占位 |
+无。

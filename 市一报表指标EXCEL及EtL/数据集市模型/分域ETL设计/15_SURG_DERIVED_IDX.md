@@ -39,7 +39,4 @@
 
 ## 四、已知问题
 
-| 编号 | 严重程度 | 描述 |
-|---|---|---|
-| 上游BUG-1 | 🔴 高 | type_1_incision_iv_antibiotic_leq_24h_cases 上游缺≤24h过滤，导致 leq_24h_rate 永远=100% |
-| 上游BUG-2 | 🔴 高 | type_2_incision_iv_antibiotic_leq_24h_cases 同样缺≤24h过滤 |
+无。
