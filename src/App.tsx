@@ -228,30 +228,30 @@ export default function App() {
             </div>
 
             {/* Main hero content */}
-            <div className="md:col-span-7">
+            <div className="md:col-span-5">
               <div className="animate-hero-text">
                 {/* Small top label */}
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="h-[1px] w-12 bg-gold/50" />
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-[1px] w-10 bg-gold/50" />
                   <span className="text-[10px] tracking-[0.4em] text-gold/70 uppercase font-medium">
                     Cello Virtuoso
                   </span>
                 </div>
 
-                <h1 className="hero-title font-display text-7xl sm:text-8xl md:text-[10rem] lg:text-[12rem] leading-[0.82] mb-6 relative">
+                <h1 className="hero-title font-display text-6xl sm:text-7xl md:text-[7rem] lg:text-[8rem] leading-[0.82] mb-5 relative">
                   <span className="block">王麒昀</span>
-                  <span className="block font-serif italic text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-5 text-gold-light font-light tracking-wide">
+                  <span className="block font-serif italic text-2xl sm:text-3xl md:text-4xl lg:text-[2.8rem] mt-4 text-gold-light font-light tracking-wide">
                     Wang Qiyun
                   </span>
                 </h1>
 
-                <div className="flex flex-col gap-6 max-w-xl border-l-2 border-gold/25 pl-8 mt-10">
-                  <p className="text-lg md:text-xl font-serif italic tracking-wide text-white/85 leading-relaxed">
+                <div className="flex flex-col gap-4 max-w-md border-l-2 border-gold/25 pl-6 mt-8">
+                  <p className="text-base md:text-lg font-serif italic tracking-wide text-white/85 leading-relaxed">
                     "于弦音之间，寻觅古典与现代的学术交响。"
                   </p>
                   <div className="flex gap-4 items-center">
-                    <div className="animate-draw-line h-[1px] bg-gold/60" style={{ width: '6rem' }} />
-                    <span className="text-[10px] tracking-[0.35em] text-gold/80 font-medium">
+                    <div className="animate-draw-line h-[1px] bg-gold/60" style={{ width: '5rem' }} />
+                    <span className="text-[9px] tracking-[0.3em] text-gold/80 font-medium">
                       欧洲学院硕士 · 伯克利·耶鲁认证学者
                     </span>
                   </div>
@@ -260,9 +260,9 @@ export default function App() {
             </div>
 
             {/* Portrait */}
-            <div className="md:col-span-4 lg:col-span-4 flex justify-end">
+            <div className="md:col-span-6 lg:col-span-6 flex justify-center md:justify-end">
               <div className="relative group">
-                <div className="w-[280px] sm:w-[320px] h-[420px] sm:h-[480px] bg-white/[0.03] border border-gold/15 overflow-hidden poster-shadow">
+                <div className="w-[320px] sm:w-[380px] md:w-[340px] lg:w-[420px] h-[460px] sm:h-[530px] md:h-[500px] lg:h-[580px] bg-white/[0.03] border border-gold/15 overflow-hidden poster-shadow">
                   <img
                     src="/portrait.jpg"
                     alt="王麒昀 - 大提琴家"

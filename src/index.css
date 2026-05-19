@@ -231,7 +231,7 @@ body::before {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 4rem !important;
+    font-size: 3.5rem !important;
     line-height: 0.85 !important;
   }
 }
