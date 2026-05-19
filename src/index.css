@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  
+  --color-crimson: #991b1b;
+  --color-gold: #d4af37;
+  --color-paper: #fdfcf7;
+}
+
+body {
+  background-color: #fdfcf7;
+  color: #1a1a1a;
+  @apply font-sans;
+}
+
+.poster-shadow {
+  box-shadow: 0 20px 50px rgba(153, 27, 27, 0.15);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #f1d58d 50%, #d4af37 100%);
+}
+
+.bg-texture {
+  background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+  opacity: 0.1;
+}
