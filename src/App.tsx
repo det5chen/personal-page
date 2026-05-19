@@ -264,7 +264,7 @@ export default function App() {
               <div className="relative group">
                 <div className="w-[320px] sm:w-[380px] md:w-[340px] lg:w-[420px] h-[460px] sm:h-[530px] md:h-[500px] lg:h-[580px] bg-white/[0.03] border border-gold/15 overflow-hidden poster-shadow">
                   <img
-                    src="/portrait.jpg"
+                    src={`${import.meta.env.BASE_URL}portrait.jpg`}
                     alt="王麒昀 - 大提琴家"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     referrerPolicy="no-referrer"
