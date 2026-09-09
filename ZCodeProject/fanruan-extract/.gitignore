@@ -1,0 +1,14 @@
+# 原始素材包与解包中间产物（158MB，不入库；可由 *.py 脚本重新下载生成）
+downloads/
+materials/
+daping_demo/
+大屏模板示例一/
+preview_probe/
+*.jpg
+*.png
+*.zip
+*.rar
+*.bin
+cj.txt
+dl_test.bin
+test_pkg.bin

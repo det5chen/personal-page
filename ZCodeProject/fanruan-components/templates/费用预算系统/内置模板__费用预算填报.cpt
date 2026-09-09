@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20211223" releaseVersion="10.0.0">
+<TableDataMap>
+<TableData name="费用明细" class="com.fr.data.impl.EmbeddedTableData">
+<Parameters/>
+<DSName>
+<![CDATA[]]></DSName>
+<ColumnNames>
+<![CDATA[科目代码,,.,,预算费用,,.,,预算说明,,.,,说明附件,,.,,预算流程ID,,.,,实际费用,,.,,插入时间]]></ColumnNames>
+<ColumnTypes>
+<![CDATA[]]></ColumnTypes>
+</TableData>
+<TableData name="部门信息" class="com.fr.data.impl.EmbeddedTableData">
+<Parameters/>
+<DSName>
+<![CDATA[]]></DSName>
+<ColumnNames>
+<![CDATA[预算流程ID,,.,,创建人,,.,,操作时间,,.,,状态,,.,,处理人,,.,,操作内容,,.,,部门,,.,,预算年份]]></ColumnNames>
+<ColumnTypes>
+<![CDATA[]]></ColumnTypes>
+</TableData>
+<TableData name="上年费用明细" class="com.fr.data.impl.EmbeddedTableData">
+<Parameters/>
+<DSName>
+<![CDATA[]]></DSName>
+<ColumnNames>
+<![CDATA[科目代码,,.,,预算费用,,.,,预算说明,,.,,说明附件,,.,,预算流程ID,,.,,实际费用,,.,,插入时间,,.,,费用预算差异]]></ColumnNames>
+<ColumnTypes>
+<![CDATA[java.lang.String,java.lang.String,java.lang.String,com.fr.stable.Primitive,java.lang.String,java.lang.String,java.lang.String,java.math.BigDecimal]]></ColumnTypes>
+<RowData ColumnTypes="java.lang.String,java.lang.String,java.lang.String,com.fr.stable.Primitive,java.lang.String,java.lang.String,java.lang.String,java.math.BigDecimal">
+<![CDATA[NKi18dm+J!Y:!,^$Y6YXgO6Y<&;".1;%c,o7Dg8pXbn<u3_Botr%d-:o+mn%iPK1cin!GaT7
+?j.>qWX;N&(KPGL^M:"%Y$Jf-92/5U)Vm%s#ne=JW-R52l'cCCge.,;-J/+dn)MH1$/UqCE\
+T+?RSX,;-7(`BX:hU0_Z*io(t_LM=X]AU,=2iJh(aMP7Jhj`+VTH"H@o@r6e;heVe3%h=UqfN
+0bcld()\M#4A1,B=T[e>^eiW%BTeD'.fjJ$Abn;bJW[_=BG_u*!B8"TJ.0@HZZk/G)b)M\;o
+L73Mr\$\X#3jJ+q@Phs-,H2neMb-l'"YFoiSH7-jjE_LJ*ccifVd`AMF@_e$+6Ie=!dnCsM[
+Y6JLC-loR28ATm#It&.6_++aV.<pQ_is6&McTdotS#ZC,35=\cA?gjWg2C1l:u0IRgB!.4+q
+:"XA6rb_8abAKm4M1ek$u<<?%0@hg*j.7]AoT\>ajX/=Me2Rkp@"<ljR[?\Z:JqlE7nQSB!Z]A
+^=oD<!j^s>7#VHBa?jJFC2uEFNR;Ob5HhH!4qbR\6'9R,P\*IenVG_uBp`A+44;JOhRKR.[f
+-:>ZdQg.8=kYhRlOe^3[G`[52\m,:[X"s0aNDXA~
+]]></RowData>
+</TableData>
+<TableData name="科目信息" class="com.fr.data.impl.EmbeddedTableData">
+<Parameters/>
+<DSName>
+<![CDATA[]]></DSName>
+<ColumnNames>
+<![CDATA[科目大类,,.,,科目类别,,.,,科目代码,,.,,核算内容说明]]></ColumnNames>
+<ColumnTypes>
+<![CDATA[java.lang.String,java.lang.String,java.lang.String,java.lang.String]]></ColumnTypes>
+<RowData ColumnTypes="java.lang.String,java.lang.String,java.lang.String,java.lang.String">
+<![CDATA[Fd238U+d:8J)f"bhOY6jZkTH3X]ADL2V=i:%N'^h0B[Ou?$mu@"0de6XLlO]A)6I+FpcIn&[dN
+,F0XSjZPbV]A=+.Vi,;=4^XREtW[Dd!3JtZ2RfX_3[s,[kM^K\X?l?.t+V;m?G;DRI>2^<f=\
+]AA>jRu?%poe-lL8*5rrML49L,A"R?LdD3QjVM_fC/-Bc=rYYi3;"]AdEe]Ag--uWXdK>)Ys#>C
+R(9mfX[rs>l]An;-!\J;KL#3e([9*m54M<N'<&"ST3G9i$t!!7rG^Dh,QTn/J>Ln3#SY]A=C/1
+Nu%u:-+-J!Ofoh[u8Ye1%t!q2OI)?,Zhq\06u0`p?Q_4#','gfe>G8T^R'24FAO]A!S/R:@.c
+B2%#bkjN5iOasM7+KIB)`n1MNRo''rcpnd6a5*]Atj<PiT!k_1mqjgJu+h6UiojI;4h&+&n"(
+#fS]ApRe.+Jp1jb2DtG-*_VbV]Am"4dgj<MLq[Z_LAYK3NJGe^(rYj[rkKq^3<h(JZ)PG,S171
+;I),WY1!aCu0(J%Kr`H4<7.")S*H45OhB:M^C&LNtZAMHGWle9FZ#oQt`MS]Ai84H?0U.l;ND
+`B0:b0fVh%hS$V$dI_YjOGAK<Sjjnj:AAkV+f[mU#j^g'*THrI\9gVf/`@9E-+qj3YiY3i&>
+`2/"_WC'+0]A/HPdWBlURX!@9En0@npPa,P>Or?kV^)UcYZaIIl6\I&6g=$5gSShFBkdq#_37
+NhMSh61ca(7f/Kp<Q#;63PBn$0Q"Cl-T`&_b2]AP&_XeuuO%\t=FhFbjZ18D~
+]]></RowData>
+</TableData>
+</TableDataMap>
+<ReportWebAttr>
+<ServerPrinter/>
+<WebWriteContent>
+<Listener event="afterload">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="aa"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$view]]></Attributes>
+</O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[_g().curLGP.hideSelectFrame();]]></Content>
+</JavaScript>
+</Listener>
+<Listener event="writesuccess">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters/>
+<Content>
+<![CDATA[//window.parent.location.reload();]]></Content>
+</JavaScript>
+</Listener>
+<ToolBars>
+<ToolBarManager>
+<Location>
+<Embed position="1"/>
+</Location>
+<ToolBar>
+<Widget class="com.fr.report.web.button.write.Submit">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Report_Utils_Submit')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[submit]]></IconName>
+<Verify failVerifySubmit="false" value="true"/>
+<Sheet onlySubmitSelect="false"/>
+</Widget>
+<Widget class="com.fr.report.web.button.write.Verify">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Report_Verify_Data')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[verify]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.button.NewPrint">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Print')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[print]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.button.Export">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Export')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[export]]></IconName>
+<Buttons pdf="true" excelP="true" excelO="true" excelS="true" word="true" image="true" html="true"/>
+</Widget>
+<Widget class="com.fr.report.web.button.Email">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Report_Email')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[email]]></IconName>
+<EmailButton customConsignee="true" consigneeByDepartment="false" consigneeByRole="false"/>
+</Widget>
+<Widget class="com.fr.report.web.button.write.DeleteColumnRow">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Delete_Column_Row')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[deleterow]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.button.write.ShowCellValue">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue/>
+<LabelAttr verticalcenter="true" textalign="0" autoline="false"/>
+<FRFont name="SimSun" style="0" size="72"/>
+<border style="0" color="-723724"/>
+</Widget>
+</ToolBar>
+</ToolBarManager>
+</ToolBars>
+<EditRowColor setColor="false"/>
+<WebWrite SheetPosition="3"/>
+<RptLocation isShowAtLeft="true"/>
+<UnloadCheck/>
+<ShowWidgets/>
+<OtherAttr autoStash="false"/>
+</WebWriteContent>
+</ReportWebAttr>
+<ElementCaseMobileAttr>
+<ElementCaseMobileAttrProvider horizontal="1" vertical="1" zoom="true" refresh="false" isUseHTML="false" isMobileCanvasSize="false" appearRefresh="false" allowFullScreen="false" allowDoubleClickOrZoom="true" functionalWhenUnactivated="false"/>
+</ElementCaseMobileAttr>
+<Report class="com.fr.report.worksheet.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR F="0" T="5"/>
+<FR/>
+<HC/>
+<FC/>
+<UPFCR COLUMN="false" ROW="true"/>
+</ReportPageAttr>
+<ColumnPrivilegeControl/>
+<RowPrivilegeControl/>
+<RowHeight defaultValue="723900">
+<![CDATA[558800,1143000,482600,1168400,1016000,1371600,1143000,1295400,1117600,1219200,723900,0,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[533400,3048000,5588000,6832600,2552700,3238500,4876800,5054600,5054600,3352800,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="1" cs="9" s="0">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=if(len($预算年份) = 0, year(today()), 部门信息.select(预算年份)) + "年小数公司" + if(len($预算流程ID) = 0, QUERY($fine_position, "$ instanceof Array ? $.map(el => el.departments) : $.departments"), 部门信息.select(部门)) + "费用预算表"]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="3" s="1">
+<O>
+<![CDATA[编制单位：]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="3" cs="6" s="1">
+<O>
+<![CDATA[小数公司财务组]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="3" s="2">
+<PrivilegeControl/>
+<CellGUIAttr showAsDefault="true"/>
+<Expand/>
+</C>
+<C c="9" r="3" s="2">
+<O>
+<![CDATA[单位：万元]]></O>
+<PrivilegeControl/>
+<CellGUIAttr showAsHTML="true"/>
+<Expand/>
+</C>
+<C c="10" r="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="4" rs="2" s="3">
+<O>
+<![CDATA[序号]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="4" rs="2" s="3">
+<O>
+<![CDATA[费用类别]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="4" rs="2" s="3">
+<O>
+<![CDATA[费用内容说明]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="4" cs="3" s="3">
+<O>
+<![CDATA[上年情况]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="4" cs="3" s="3">
+<O>
+<![CDATA[本年预算]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="5" s="3">
+<O>
+<![CDATA[上年预算]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="5" s="3">
+<O>
+<![CDATA[上年支出]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="5" s="3">
+<O>
+<![CDATA[计划与实际差异]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="5" s="3">
+<O>
+<![CDATA[本年预算]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="5" s="3">
+<O>
+<![CDATA[预算说明]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="9" r="5" s="3">
+<O>
+<![CDATA[可上传附件]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="6" s="4">
+<O t="DSColumn">
+<Attributes dsName="科目信息" columnName="科目大类"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="2" r="6" s="5">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="6" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="6" s="7">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="6" s="7">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="6" s="7">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="6" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="6" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="9" r="6" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="7" s="8">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=seq()]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="C8"/>
+</C>
+<C c="2" r="7" s="9">
+<O t="DSColumn">
+<Attributes dsName="科目信息" columnName="科目代码"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Present class="com.fr.base.present.FormulaPresent">
+<Content>
+<![CDATA[=科目信息.select(科目类别, 科目代码 = $$$)]]></Content>
+</Present>
+<Expand dir="0" leftParentDefault="false" left="B7"/>
+</C>
+<C c="3" r="7" s="10">
+<O t="DSColumn">
+<Attributes dsName="科目信息" columnName="核算内容说明"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="4" r="7" s="11">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="5" r="7" s="11">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="实际费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="6" r="7" s="11">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="费用预算差异"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="7" r="7" s="11">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Widget class="com.fr.form.ui.NumberEditor">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<NumberAttr>
+<watermark>
+<![CDATA[填入本年预估金额]]></watermark>
+<widgetValue/>
+</NumberAttr>
+</Widget>
+<Expand dir="0"/>
+</C>
+<C c="8" r="7" s="11">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="预算说明"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<CellGUIAttr showAsDefault="true">
+<FileName>
+<![CDATA[附件.pdf]]></FileName>
+</CellGUIAttr>
+<CellPageAttr/>
+<Widget class="com.fr.form.ui.TextArea">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<TextAttr/>
+<Reg class="com.fr.form.ui.reg.NoneReg"/>
+<watermark>
+<![CDATA[填入预算说明]]></watermark>
+<widgetValue/>
+<MobileScanCodeAttr scanCode="true" textInputMode="0"/>
+</Widget>
+<Expand dir="0"/>
+</C>
+<C c="9" r="7" s="11">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="说明附件"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<CellGUIAttr showAsDownload="true">
+<FileName>
+<![CDATA[预算附件.pdf]]></FileName>
+</CellGUIAttr>
+<CellPageAttr/>
+<Widget class="com.fr.form.ui.MultiFileEditor">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false"/>
+<PrivilegeControl/>
+</WidgetAttr>
+<FileAttr maxlength="1" accept="pdf" maxSize="0.0">
+<MultiFileUploaderMobileAttr uploadMode="0"/>
+</FileAttr>
+</Widget>
+<Expand dir="0"/>
+</C>
+<C c="1" r="8" s="12">
+<O>
+<![CDATA[小计]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="8" s="13">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="B7"/>
+</C>
+<C c="5" r="8" s="13">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="实际费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="B7"/>
+</C>
+<C c="6" r="8" s="13">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="费用预算差异"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="7"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="B7"/>
+</C>
+<C c="7" r="8" s="13">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=SUM(H8)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="8" s="13">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="9" s="14">
+<O>
+<![CDATA[合计]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="9" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="9" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="9" s="16">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="9" s="16">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="实际费用"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="9" s="16">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="费用预算差异"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="9" s="16">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=SUM(H8)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="9" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="9" r="9" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="11">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="11">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=LEN($预算流程ID)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<FrozenColumnRow columnrow="A7"/>
+<PaperSetting>
+<PaperSize width="46080000" height="57168000"/>
+<Margin top="144000" left="288000" bottom="986400" right="2743200"/>
+</PaperSetting>
+<Background name="ColorBackground" color="-1"/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+<ReportWriteAttr>
+<SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
+<Name>
+<![CDATA[明细填报-插入]]></Name>
+<Attributes dsName="FRDemo"/>
+<DMLConfig class="com.fr.write.config.InsertConfig">
+<Table schema="" name="FD_费用预算明细"/>
+<ColumnConfig name="科目代码" isKey="false" skipUnmodified="false">
+<ColumnRow column="2" row="7"/>
+</ColumnConfig>
+<ColumnConfig name="预算费用" isKey="false" skipUnmodified="false">
+<ColumnRow column="7" row="7"/>
+</ColumnConfig>
+<ColumnConfig name="预算流程ID" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=if(len(sql("FRDemo", "select max(预算流程ID) from FD_费用预算流转表 WHERE 操作时间>= DATE(NOW())", 1, 1)) > 1, sql("FRDemo", "select max(预算流程ID) from FD_费用预算流转表 WHERE 操作时间>= DATE(NOW())", 1, 1) + 1, CONCATENATE(REPLACE(TODAY(), '-', ''), '001'))]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="插入时间" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=now()]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="预算说明" isKey="false" skipUnmodified="false">
+<ColumnRow column="8" row="7"/>
+</ColumnConfig>
+<ColumnConfig name="说明附件" isKey="false" skipUnmodified="false">
+<ColumnRow column="9" row="7"/>
+</ColumnConfig>
+<Condition class="com.fr.data.condition.ListCondition">
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[LEN(H8) != 0]]></Formula>
+</Condition>
+</JoinCondition>
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[C12= 0]]></Formula>
+</Condition>
+</JoinCondition>
+</Condition>
+</DMLConfig>
+</SubmitVisitor>
+<SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
+<Name>
+<![CDATA[明细填报-修改]]></Name>
+<Attributes dsName="FRDemo"/>
+<DMLConfig class="com.fr.write.config.IntelliDMLConfig">
+<Table schema="" name="FD_费用预算明细"/>
+<ColumnConfig name="科目代码" isKey="true" skipUnmodified="false">
+<ColumnRow column="2" row="7"/>
+</ColumnConfig>
+<ColumnConfig name="预算费用" isKey="false" skipUnmodified="false">
+<ColumnRow column="7" row="7"/>
+</ColumnConfig>
+<ColumnConfig name="预算流程ID" isKey="true" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$预算流程ID]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="插入时间" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=now()]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="预算说明" isKey="false" skipUnmodified="false">
+<ColumnRow column="8" row="7"/>
+</ColumnConfig>
+<ColumnConfig name="说明附件" isKey="false" skipUnmodified="false">
+<ColumnRow column="9" row="7"/>
+</ColumnConfig>
+<Condition class="com.fr.data.condition.ListCondition">
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[LEN($预算流程ID) != 0]]></Formula>
+</Condition>
+</JoinCondition>
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[LEN(H8) != 0]]></Formula>
+</Condition>
+</JoinCondition>
+</Condition>
+</DMLConfig>
+</SubmitVisitor>
+<SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
+<Name>
+<![CDATA[操作内容填报]]></Name>
+<Attributes dsName="FRDemo"/>
+<DMLConfig class="com.fr.write.config.IntelliDMLConfig">
+<Table schema="" name="FD_费用流程操作表"/>
+<ColumnConfig name="预算流程ID" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=if(len($预算流程ID)=0,
+if(len(sql("FRDemo", "select max(预算流程ID) from FD_费用预算流转表 WHERE 操作时间>= DATE(NOW())", 1, 1)) > 1, sql("FRDemo", "select max(预算流程ID) from FD_费用预算流转表 WHERE 操作时间>= DATE(NOW())", 1, 1) + 1, CONCATENATE(REPLACE(TODAY(), '-', ''), '001'))
+,$预算流程ID)]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="处理人" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$fine_username]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="操作时间" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=NOW()]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="操作内容" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[部门填写]]></O>
+</ColumnConfig>
+<ColumnConfig name="操作建议" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[部门填写]]></O>
+</ColumnConfig>
+<ColumnConfig name="状态" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[部门填写]]></O>
+</ColumnConfig>
+<Condition class="com.fr.data.condition.ListCondition"/>
+</DMLConfig>
+</SubmitVisitor>
+<SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
+<Name>
+<![CDATA[流程单填报-插入]]></Name>
+<Attributes dsName="FRDemo"/>
+<DMLConfig class="com.fr.write.config.IntelliDMLConfig">
+<Table schema="" name="FD_费用预算流转表"/>
+<ColumnConfig name="预算流程ID" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=if(len(sql("FRDemo", "select max(预算流程ID) from FD_费用预算流转表 WHERE 操作时间>= DATE(NOW())", 1, 1)) > 1, sql("FRDemo", "select max(预算流程ID) from FD_费用预算流转表 WHERE 操作时间>= DATE(NOW())", 1, 1) + 1, CONCATENATE(REPLACE(TODAY(), '-', ''), '001'))]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="操作时间" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=now()]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="创建人" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$fine_username]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="状态" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[待财务审核]]></O>
+</ColumnConfig>
+<ColumnConfig name="处理人" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=20150101005]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="部门" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=QUERY($fine_position, "$ instanceof Array ? $.map(el => el.departments) : $.departments")]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="预算年份" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=year(today())]]></Attributes>
+</O>
+</ColumnConfig>
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[C12=0]]></Formula>
+</Condition>
+</DMLConfig>
+</SubmitVisitor>
+<SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
+<Name>
+<![CDATA[流程单填报-修改]]></Name>
+<Attributes dsName="FRDemo"/>
+<DMLConfig class="com.fr.write.config.IntelliDMLConfig">
+<Table schema="" name="FD_费用预算流转表"/>
+<ColumnConfig name="预算流程ID" isKey="true" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$预算流程ID]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="操作时间" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=now()]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="创建人" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$fine_username]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="状态" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[待财务审核]]></O>
+</ColumnConfig>
+<ColumnConfig name="处理人" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=20150101005]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="部门" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=QUERY($fine_position, "$ instanceof Array ? $.map(el => el.departments) : $.departments")]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="预算年份" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=year(today())]]></Attributes>
+</O>
+</ColumnConfig>
+<Condition class="com.fr.data.condition.FormulaCondition">
+<Formula>
+<![CDATA[LEN($预算流程ID) != 0]]></Formula>
+</Condition>
+</DMLConfig>
+</SubmitVisitor>
+</ReportWriteAttr>
+<PrivilegeControl/>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="true" windowPosition="1" align="0" useParamsTemplate="true" currentIndex="0"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+</ReportParameterAttr>
+<StyleList>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="112" foreground="-14840065"/>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="2" color="-14840065"/>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72" foreground="-12235433"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72" foreground="-12235433"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80" foreground="-1"/>
+<Background name="ColorBackground" color="-14840065"/>
+<Border>
+<Top style="1" color="-1116417"/>
+<Bottom style="1" color="-1116417"/>
+<Left style="1" color="-1116417"/>
+<Right style="1" color="-1116417"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80" foreground="-14840065"/>
+<Background name="ColorBackground" color="-1116417"/>
+<Border>
+<Top style="1" color="-14840065"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="88" foreground="-14840065"/>
+<Background name="ColorBackground" color="-1116417"/>
+<Border>
+<Top style="1" color="-14840065"/>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="88" foreground="-14840065"/>
+<Background name="ColorBackground" color="-1116417"/>
+<Border>
+<Top style="1" color="-14840065"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80" foreground="-14840065"/>
+<Background name="ColorBackground" color="-1116417"/>
+<Border>
+<Top style="1" color="-14840065"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3" color="-2169358"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72" foreground="-12235433"/>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3" color="-2169358"/>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72" foreground="-12235433"/>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3" color="-2169358"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72" foreground="-12235433"/>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3" color="-2169358"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="80" foreground="-14840065"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="72" foreground="-14840065"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="96" foreground="-14840065"/>
+<Background name="ColorBackground" color="-3020545"/>
+<Border>
+<Top style="1" color="-14840065"/>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="ColorBackground" color="-3020545"/>
+<Border>
+<Top style="1" color="-14840065"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="80" foreground="-14840065"/>
+<Background name="ColorBackground" color="-3020545"/>
+<Border>
+<Top style="1" color="-14840065"/>
+</Border>
+</Style>
+</StyleList>
+<DesignerVersion DesignerVersion="KAA"/>
+<PreviewType PreviewType="1"/>
+<TemplateCloudInfoAttrMark class="com.fr.plugin.cloud.analytics.attr.TemplateInfoAttrMark" pluginID="com.fr.plugin.cloud.analytics.v10" plugin-version="2.6.1.20220408">
+<TemplateCloudInfoAttrMark createTime="1649664479071"/>
+</TemplateCloudInfoAttrMark>
+<TemplateIdAttMark class="com.fr.base.iofile.attr.TemplateIdAttrMark">
+<TemplateIdAttMark TemplateId="519a633b-bf0c-4c79-acd4-3ada963b2148"/>
+</TemplateIdAttMark>
+</WorkBook>

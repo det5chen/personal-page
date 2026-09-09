@@ -1,0 +1,3010 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20211223" releaseVersion="11.0.0">
+<TableDataMap>
+<TableData name="费用明细" class="com.fr.data.impl.DBTableData">
+<Desensitizations desensitizeOpen="false"/>
+<Parameters>
+<Parameter>
+<Attributes name="部门"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="科目大类"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="预算年份"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=YEAR(TODAY())]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="状态"/>
+<O>
+<![CDATA[待财务提交总经理]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[Mysql数据连接]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT 科目大类, 科目类别, 科目代码, 预算说明, 说明附件, 核算内容说明,
+cast(SUM(预算费用) as decimal(15,1)) AS 预算费用,
+cast(SUM(实际费用) as decimal(15,1)) AS 实际费用,
+cast((SUM(预算费用) - SUM(实际费用)) as decimal(15,1)) AS 费用预算差异
+FROM (
+    SELECT T1.部门, T1.预算年份, T2.预算费用, T2.实际费用, T2.预算说明, T2.说明附件, T2.科目代码, T3.科目大类, T3.科目类别, T3.核算内容说明 
+    FROM 
+        FD_费用预算流转表 T1
+        INNER JOIN FD_费用预算明细 T2 ON T1.预算流程ID = T2.预算流程ID
+        INNER JOIN FD_费用科目表 T3 ON T2.科目代码 = T3.科目代码
+    WHERE T1.状态 = '${状态}'
+) TT 
+WHERE 预算年份 = '${预算年份}' 
+${if(len(部门) == 0,"","and 部门 = '" + 部门 + "'")} 
+${if(len(科目大类) == 0,"","and 科目大类 = '" + 科目大类 + "'")} 
+GROUP BY 科目大类, 科目类别, 科目代码, 预算说明, 说明附件, 核算内容说明]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+<TableData name="上年费用明细" class="com.fr.data.impl.DBTableData">
+<Desensitizations desensitizeOpen="false"/>
+<Parameters>
+<Parameter>
+<Attributes name="部门"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="科目大类"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="预算年份"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=year(today())]]></Attributes>
+</O>
+</Parameter>
+<Parameter>
+<Attributes name="状态"/>
+<O>
+<![CDATA[待财务提交总经理]]></O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[Mysql数据连接]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT 科目大类, 科目类别, 科目代码, 预算说明, 说明附件,
+cast(SUM(预算费用) as decimal(15,1)) AS 预算费用,
+cast(SUM(实际费用) as decimal(15,1)) AS 实际费用,
+cast((SUM(预算费用) - SUM(实际费用)) as decimal(15,1)) AS 费用预算差异
+FROM (
+    SELECT T1.部门, T1.预算年份, T2.预算费用, T2.实际费用, T2.预算说明, T2.说明附件, T2.科目代码, T3.科目大类, T3.科目类别 
+    FROM 
+        FD_费用预算流转表 T1
+        INNER JOIN FD_费用预算明细 T2 ON T1.预算流程ID = T2.预算流程ID
+        INNER JOIN FD_费用科目表 T3 ON T2.科目代码 = T3.科目代码
+    WHERE 
+        T1.状态 = '${状态}'
+) TT 
+WHERE 预算年份 = '${预算年份}' 
+${if(len(部门) == 0,"","and 部门 = '" + 部门 + "'")} 
+${if(len(科目大类) == 0,"","and 科目大类 = '" + 科目大类 + "'")} 
+GROUP BY 科目大类, 科目类别, 科目代码, 预算说明, 说明附件]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+<TableData name="部门费用" class="com.fr.data.impl.DBTableData">
+<Desensitizations desensitizeOpen="false"/>
+<Parameters>
+<Parameter>
+<Attributes name="科目大类"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="状态"/>
+<O>
+<![CDATA[待财务提交总经理]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="预算年份"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=YEAR(TODAY())]]></Attributes>
+</O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[Mysql数据连接]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT 部门, cast(SUM(预算费用) as decimal(15,1)) AS 总费用 
+FROM (
+    SELECT T2.预算费用, T2.科目代码, T1.部门, T1.预算流程ID, T3.科目大类 
+    FROM 
+        FD_费用预算流转表 T1
+        INNER JOIN FD_费用预算明细 T2 ON T1.预算流程ID = T2.预算流程ID
+        INNER JOIN FD_费用科目表 T3 ON T2.科目代码 = T3.科目代码
+    WHERE 
+        T1.状态 = '${状态}' AND 
+        T1.预算年份 = '${预算年份}' AND 
+        (1=1 ${if(len(科目大类) == 0,"","and 科目大类 = '" + 科目大类 + "'")})
+) TT  
+GROUP BY 部门]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+<TableData name="类别数据" class="com.fr.data.impl.DBTableData">
+<Desensitizations desensitizeOpen="false"/>
+<Parameters>
+<Parameter>
+<Attributes name="部门"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="状态"/>
+<O>
+<![CDATA[待财务提交总经理]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="预算年份"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=YEAR(TODAY())]]></Attributes>
+</O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[Mysql数据连接]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT 科目大类, cast(SUM(预算费用) as decimal(15,1)) AS 总费用 
+FROM (
+    SELECT T2.预算费用, T2.科目代码, T1.部门, T3.科目大类 
+    FROM 
+        FD_费用预算流转表 T1
+        INNER JOIN FD_费用预算明细 T2 ON T1.预算流程ID = T2.预算流程ID
+        INNER JOIN FD_费用科目表 T3 ON T2.科目代码 = T3.科目代码
+    WHERE 
+        T1.状态 = '${状态}' AND 
+        T1.预算年份 = '${预算年份}'
+) TT  
+WHERE 1=1 ${if(len(部门) == 0,"","and 部门 = '" + 部门 + "'")} 
+GROUP BY 科目大类]]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+<TableData name="预算流程ID" class="com.fr.data.impl.DBTableData">
+<Desensitizations desensitizeOpen="false"/>
+<Parameters>
+<Parameter>
+<Attributes name="状态"/>
+<O>
+<![CDATA[待财务提交总经理]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="预算年份"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=YEAR(TODAY())]]></Attributes>
+</O>
+</Parameter>
+</Parameters>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[Mysql数据连接]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT  * FROM FD_费用预算流转表 WHERE 状态='${状态}'AND 预算年份='${预算年份}']]></Query>
+<PageQuery>
+<![CDATA[]]></PageQuery>
+</TableData>
+</TableDataMap>
+<ReportWebAttr>
+<ServerPrinter/>
+<WebWriteContent>
+<Listener event="afterload">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters>
+<Parameter>
+<Attributes name="aa"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$view]]></Attributes>
+</O>
+</Parameter>
+</Parameters>
+<Content>
+<![CDATA[_g().curLGP.hideSelectFrame();]]></Content>
+</JavaScript>
+</Listener>
+<Listener event="writesuccess">
+<JavaScript class="com.fr.js.JavaScriptImpl">
+<Parameters/>
+<Content>
+<![CDATA[//window.parent.location.reload();]]></Content>
+</JavaScript>
+</Listener>
+<ToolBars>
+<ToolBarManager>
+<Location>
+<Embed position="1"/>
+</Location>
+<ToolBar>
+<Widget class="com.fr.report.web.button.write.Submit">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Report_Utils_Submit')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[submit]]></IconName>
+<Verify failVerifySubmit="false" value="true"/>
+<Sheet onlySubmitSelect="false"/>
+</Widget>
+<Widget class="com.fr.report.web.button.write.Verify">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Report_Verify_Data')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[verify]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.button.NewPrint">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Print')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[print]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.button.Export">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Export')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[export]]></IconName>
+<ExtraButton ButtonName="ExcelS2003">
+<Buttons ExcelS2003="true"/>
+</ExtraButton>
+<ExtraButton ButtonName="ExcelP2003">
+<Buttons ExcelP2003="true"/>
+</ExtraButton>
+<ExtraButton ButtonName="ExcelO2003">
+<Buttons ExcelO2003="true"/>
+</ExtraButton>
+<ExtraButton ButtonName="Word-plugin-export-pdf">
+<Buttons Word-plugin-export-pdf="true"/>
+</ExtraButton>
+<ExtraButton ButtonName="Word-plugin-export">
+<Buttons Word-plugin-export="true"/>
+</ExtraButton>
+<Buttons pdf="true" excelP="true" excelO="true" excelS="true" word="true" image="true" html="true"/>
+</Widget>
+<Widget class="com.fr.report.web.button.Email">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Report_Email')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[email]]></IconName>
+<EmailButton customConsignee="true" consigneeByDepartment="false" consigneeByRole="false"/>
+</Widget>
+<Widget class="com.fr.report.web.button.write.AppendColumnRow">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<Text>
+<![CDATA[${i18n('Fine-Engine_Add_Record')}]]></Text>
+<Hotkeys>
+<![CDATA[]]></Hotkeys>
+<IconName>
+<![CDATA[appendrow]]></IconName>
+</Widget>
+<Widget class="com.fr.report.web.button.write.ShowCellValue">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<widgetValue/>
+<LabelAttr verticalcenter="true" textalign="0" autoline="false"/>
+<FRFont name="SimSun" style="0" size="72"/>
+<border style="0">
+<color>
+<FineColor color="-723724" hor="-1" ver="-1"/>
+</color>
+</border>
+</Widget>
+</ToolBar>
+</ToolBarManager>
+</ToolBars>
+<EditRowColor setColor="false"/>
+<WebWrite SheetPosition="3"/>
+<RptLocation isShowAtLeft="true"/>
+<UnloadCheck/>
+<ShowWidgets/>
+<OtherAttr autoStash="false"/>
+</WebWriteContent>
+</ReportWebAttr>
+<ElementCaseMobileAttr>
+<ElementCaseMobileAttrProvider horizontal="1" vertical="1" zoom="true" refresh="false" isUseHTML="false" isMobileCanvasSize="false" appearRefresh="false" allowFullScreen="false" allowDoubleClickOrZoom="true" functionalWhenUnactivated="false"/>
+</ElementCaseMobileAttr>
+<Report class="com.fr.report.worksheet.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR F="0" T="8"/>
+<FR/>
+<HC/>
+<FC/>
+<UPFCR COLUMN="false" ROW="true"/>
+<USE REPEAT="false" PAGE="false" WRITE="false"/>
+</ReportPageAttr>
+<ColumnPrivilegeControl/>
+<RowPrivilegeControl/>
+<RowHeight defaultValue="723900">
+<![CDATA[558800,1143000,482600,1168400,723900,7493000,723900,1016000,1092200,1143000,1295400,1117600,1219200,723900,0,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[533400,3302000,5588000,6832600,2552700,3238500,4876800,5054600,5054600,3352800,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0">
+<PrivilegeControl/>
+<Expand>
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="1" r="1" cs="9" s="0">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=if(len($预算年份) = 0, year(today()), 部门信息.select(预算年份)) + "年小数公司" + "费用预算表"]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="3" s="1">
+<O>
+<![CDATA[编制单位：]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="3" cs="6" s="1">
+<O>
+<![CDATA[小数公司财务组]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="3" s="2">
+<PrivilegeControl/>
+<CellGUIAttr showAsDefault="true"/>
+<Expand/>
+</C>
+<C c="9" r="3" s="2">
+<O>
+<![CDATA[单位：万元]]></O>
+<PrivilegeControl/>
+<CellGUIAttr showAsHTML="true"/>
+<Expand/>
+</C>
+<C c="10" r="3">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="5" cs="3">
+<O t="CC">
+<LayoutAttr selectedIndex="0"/>
+<ChangeAttr enable="false" changeType="button" timeInterval="5" showArrow="true">
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="PingFangSC-Regular" style="0" size="96">
+<foreground>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<buttonColor>
+<FineColor color="-6710887" hor="-1" ver="-1"/>
+</buttonColor>
+<carouselColor>
+<FineColor color="-8421505" hor="-1" ver="-1"/>
+</carouselColor>
+</ChangeAttr>
+<Chart name="默认" chartClass="com.fr.plugin.chart.vanchart.VanChart">
+<Chart class="com.fr.plugin.chart.vanchart.VanChart">
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-1118482" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<ChartAttr isJSDraw="true" isStyleGlobal="false"/>
+<Title4VanChart>
+<Title>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-6908266" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O>
+<![CDATA[新建图表标题]]></O>
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="微软雅黑" style="0" size="128">
+<foreground>
+<FineColor color="-13421773" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<TitleVisible value="false" position="0"/>
+</Title>
+<Attr4VanChart useHtml="false" floating="false" x="0.0" y="0.0" limitSize="false" maxHeight="15.0"/>
+</Title4VanChart>
+<SwitchTitle>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O>
+<![CDATA[新建图表标题]]></O>
+</SwitchTitle>
+<Plot class="com.fr.plugin.chart.PiePlot4VanChart">
+<VanChartPlotVersion version="20170715"/>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-1118482" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isNullValueBreak="true" autoRefreshPerSecond="6" seriesDragEnable="false" plotStyle="0" combinedSize="50.0"/>
+<newHotTooltipStyle>
+<AttrContents>
+<Attr showLine="false" position="1" isWhiteBackground="true" isShowMutiSeries="false" seriesLabel="${VALUE}"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##]]></Format>
+<PercentFormat>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#0.##%]]></Format>
+</PercentFormat>
+</AttrContents>
+</newHotTooltipStyle>
+<ConditionCollection>
+<DefaultAttr class="com.fr.chart.chartglyph.ConditionAttr">
+<ConditionAttr name="">
+<AttrList>
+<Attr class="com.fr.plugin.chart.base.AttrTooltip">
+<AttrTooltip>
+<Attr enable="true" duration="4" followMouse="false" showMutiSeries="false" isCustom="false"/>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<AttrToolTipContent>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<richText class="com.fr.plugin.chart.base.AttrTooltipRichText">
+<AttrTooltipRichText>
+<Attr content="" isAuto="true" initParamsContent=""/>
+<params>
+<![CDATA[{}]]></params>
+</AttrTooltipRichText>
+</richText>
+<richTextValue class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</richTextValue>
+<richTextPercent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</richTextPercent>
+<richTextCategory class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</richTextCategory>
+<richTextSeries class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="true"/>
+</AttrTooltipSeriesFormat>
+</richTextSeries>
+<richTextChangedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</richTextChangedPercent>
+<richTextChangedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</richTextChangedValue>
+<TableFieldCollection/>
+<Attr isCommon="true" isCustom="false" isRichText="false" richTextAlign="left" showAllSeries="false"/>
+<value class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</value>
+<percent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</percent>
+<category class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</category>
+<series class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="true"/>
+</AttrTooltipSeriesFormat>
+</series>
+<changedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</changedPercent>
+<changedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</changedValue>
+<HtmlLabel customText="" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+</AttrToolTipContent>
+<GI>
+<AttrBackground>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Attr gradientType="normal" shadow="true" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="2"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="0.5"/>
+</AttrAlpha>
+</GI>
+</AttrTooltip>
+</Attr>
+<Attr class="com.fr.chart.base.AttrBorder">
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+</Attr>
+<Attr class="com.fr.plugin.chart.base.AttrLabel">
+<AttrLabel>
+<labelAttr enable="true"/>
+<labelDetail class="com.fr.plugin.chart.base.AttrLabelDetail">
+<AttrBorderWithShape>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="2"/>
+<newColor autoColor="true" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+<shapeAttr isAutoColor="true" shapeType="RectangularMarker"/>
+</AttrBorderWithShape>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="0.8"/>
+</AttrAlpha>
+</GI>
+<Attr showLine="true" isHorizontal="true" autoAdjust="false" position="6" align="9" isCustom="false"/>
+<TextAttr>
+<Attr alignText="0" themed="true">
+<FRFont name="宋体" style="0" size="72"/>
+</Attr>
+</TextAttr>
+<AttrToolTipContent>
+<TextAttr>
+<Attr alignText="0" themed="true">
+<FRFont name="宋体" style="0" size="72"/>
+</Attr>
+</TextAttr>
+<richText class="com.fr.plugin.chart.base.AttrTooltipRichText">
+<AttrTooltipRichText>
+<Attr content="&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img data-id=&quot;${VALUE}&quot;/&gt;&lt;br&gt;&lt;/p&gt;" isAuto="true" initParamsContent="${VALUE}"/>
+</AttrTooltipRichText>
+</richText>
+<richTextValue class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</richTextValue>
+<richTextPercent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</richTextPercent>
+<richTextCategory class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</richTextCategory>
+<richTextSeries class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="false"/>
+</AttrTooltipSeriesFormat>
+</richTextSeries>
+<richTextChangedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</richTextChangedPercent>
+<richTextChangedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</richTextChangedValue>
+<TableFieldCollection/>
+<Attr isCommon="true" isCustom="false" isRichText="false" richTextAlign="center" showAllSeries="false"/>
+<value class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="false"/>
+</AttrTooltipValueFormat>
+</value>
+<percent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="true"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</percent>
+<category class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</category>
+<series class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="true"/>
+</AttrTooltipSeriesFormat>
+</series>
+<changedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</changedPercent>
+<changedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</changedValue>
+<HtmlLabel customText="" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+</AttrToolTipContent>
+</labelDetail>
+<gaugeValueLabel class="com.fr.plugin.chart.base.AttrLabelDetail">
+<AttrBorderWithShape>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="2"/>
+<newColor autoColor="true" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+<shapeAttr isAutoColor="true" shapeType="RectangularMarker"/>
+</AttrBorderWithShape>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="0.8"/>
+</AttrAlpha>
+</GI>
+<Attr showLine="false" isHorizontal="true" autoAdjust="false" position="3" align="9" isCustom="true"/>
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="Verdana" style="0" size="80">
+<foreground>
+<FineColor color="-13421773" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<PieCategoryLabelContent>
+<AttrToolTipContent>
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="Verdana" style="0" size="80">
+<foreground>
+<FineColor color="-13421773" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<richText class="com.fr.plugin.chart.base.AttrTooltipRichText">
+<AttrTooltipRichText>
+<Attr content="&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img data-id=&quot;${CATEGORY}&quot;/&gt;&lt;br&gt;&lt;/p&gt;" isAuto="true" initParamsContent="${CATEGORY}"/>
+</AttrTooltipRichText>
+</richText>
+<richTextSummaryValue class="com.fr.plugin.chart.base.format.AttrTooltipSummaryValueFormat">
+<AttrTooltipSummaryValueFormat>
+<Attr enable="false"/>
+</AttrTooltipSummaryValueFormat>
+</richTextSummaryValue>
+<richTextCategory class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="true"/>
+</AttrToolTipCategoryFormat>
+</richTextCategory>
+<TableFieldCollection/>
+<Attr isCommon="true" isCustom="true" isRichText="false" richTextAlign="center" showAllSeries="false"/>
+<summaryValue class="com.fr.plugin.chart.base.format.AttrTooltipSummaryValueFormat">
+<AttrTooltipSummaryValueFormat>
+<Attr enable="false"/>
+</AttrTooltipSummaryValueFormat>
+</summaryValue>
+<category class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="true"/>
+</AttrToolTipCategoryFormat>
+</category>
+<HtmlLabel customText="" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+</AttrToolTipContent>
+</PieCategoryLabelContent>
+</gaugeValueLabel>
+</AttrLabel>
+</Attr>
+</AttrList>
+</ConditionAttr>
+</DefaultAttr>
+</ConditionCollection>
+<Legend4VanChart>
+<Legend>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-3355444" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr position="4" visible="false" themed="false"/>
+<FRFont name="微软雅黑" style="0" size="88">
+<foreground>
+<FineColor color="-10066330" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Legend>
+<Attr4VanChart floating="false" x="0.0" y="0.0" layout="aligned" customSize="false" maxHeight="30.0" isHighlight="true"/>
+</Legend4VanChart>
+<DataSheet>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isVisible="false" themed="false"/>
+<FRFont name="SimSun" style="0" size="72"/>
+</DataSheet>
+<NameJavaScriptGroup>
+<NameJavaScript name="动态参数1">
+<JavaScript class="com.fr.js.ParameterJavaScript">
+<Parameters>
+<Parameter>
+<Attributes name="科目大类"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=SERIES]]></Attributes>
+</O>
+</Parameter>
+</Parameters>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<DataProcessor class="com.fr.base.chart.chartdata.model.NormalDataModel"/>
+<newPlotFillStyle>
+<AttrFillStyle>
+<AFStyle colorStyle="1"/>
+<FillStyleName fillStyleName=""/>
+<isCustomFillStyle isCustomFillStyle="true"/>
+<PredefinedStyle themed="false"/>
+<ColorList>
+<OColor>
+<colvalue>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-8793091" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-10957964" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-339125" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-14958674" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-14260784" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-5581845" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-9328149" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-1188474" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-6715442" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+</ColorList>
+</AttrFillStyle>
+</newPlotFillStyle>
+<VanChartPlotAttr isAxisRotation="false" categoryNum="1"/>
+<GradientStyle>
+<Attr gradientType="gradual">
+<startColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</startColor>
+<endColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</endColor>
+</Attr>
+</GradientStyle>
+<PieAttr4VanChart roseType="normal" startAngle="0.0" endAngle="360.0" innerRadius="0.0" supportRotation="false"/>
+<VanChartRadius radiusType="auto" radius="100"/>
+</Plot>
+<ChartDefinition>
+<OneValueCDDefinition seriesName="科目大类" valueName="总费用" function="com.fr.data.util.function.SumFunction">
+<Top topCate="-1" topValue="-1" isDiscardOtherCate="false" isDiscardOtherSeries="false" isDiscardNullCate="false" isDiscardNullSeries="false"/>
+<TableData class="com.fr.data.impl.NameTableData">
+<Name>
+<![CDATA[类别数据]]></Name>
+</TableData>
+<CategoryName value="无"/>
+</OneValueCDDefinition>
+</ChartDefinition>
+</Chart>
+<UUID uuid="bca62368-d251-4f7e-8345-ddce1f1c2636"/>
+<tools hidden="true" sort="false" export="false" fullScreen="false"/>
+<VanChartZoom>
+<zoomAttr zoomVisible="false" zoomGesture="true" zoomResize="true" zoomType="xy" controlType="zoom" categoryNum="8" scaling="0.3"/>
+<from>
+<![CDATA[]]></from>
+<to>
+<![CDATA[]]></to>
+</VanChartZoom>
+<refreshMoreLabel>
+<attr moreLabel="false" autoTooltip="true"/>
+<AttrTooltip>
+<Attr enable="true" duration="4" followMouse="false" showMutiSeries="false" isCustom="false"/>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<AttrToolTipContent>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<richText class="com.fr.plugin.chart.base.AttrTooltipRichText">
+<AttrTooltipRichText>
+<Attr content="" isAuto="true" initParamsContent=""/>
+<params>
+<![CDATA[{}]]></params>
+</AttrTooltipRichText>
+</richText>
+<richTextValue class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</richTextValue>
+<richTextPercent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</richTextPercent>
+<richTextCategory class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</richTextCategory>
+<richTextSeries class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="false"/>
+</AttrTooltipSeriesFormat>
+</richTextSeries>
+<richTextChangedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</richTextChangedPercent>
+<richTextChangedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</richTextChangedValue>
+<TableFieldCollection/>
+<Attr isCommon="true" isCustom="false" isRichText="false" richTextAlign="left" showAllSeries="false"/>
+<value class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</value>
+<percent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</percent>
+<category class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="true"/>
+</AttrToolTipCategoryFormat>
+</category>
+<series class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="true"/>
+</AttrTooltipSeriesFormat>
+</series>
+<changedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</changedPercent>
+<changedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="true"/>
+</AttrTooltipChangedValueFormat>
+</changedValue>
+<HtmlLabel customText="" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+</AttrToolTipContent>
+<GI>
+<AttrBackground>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false" roundRadius="4"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-15395563" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="0.8"/>
+</AttrAlpha>
+</GI>
+</AttrTooltip>
+</refreshMoreLabel>
+<ThemeAttr>
+<Attr darkTheme="false"/>
+</ThemeAttr>
+</Chart>
+</O>
+<PrivilegeControl/>
+<CellGUIAttr adjustmode="1"/>
+<CellPageAttr/>
+<Expand>
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="4" r="5" cs="6">
+<O t="CC">
+<LayoutAttr selectedIndex="0"/>
+<ChangeAttr enable="false" changeType="button" timeInterval="5" showArrow="true">
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="PingFangSC-Regular" style="0" size="96">
+<foreground>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<buttonColor>
+<FineColor color="-6710887" hor="-1" ver="-1"/>
+</buttonColor>
+<carouselColor>
+<FineColor color="-8421505" hor="-1" ver="-1"/>
+</carouselColor>
+</ChangeAttr>
+<Chart name="默认" chartClass="com.fr.plugin.chart.vanchart.VanChart">
+<Chart class="com.fr.plugin.chart.vanchart.VanChart">
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-1118482" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<ChartAttr isJSDraw="true" isStyleGlobal="false"/>
+<Title4VanChart>
+<Title>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-6908266" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O>
+<![CDATA[新建图表标题]]></O>
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="微软雅黑" style="0" size="128">
+<foreground>
+<FineColor color="-13421773" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<TitleVisible value="false" position="0"/>
+</Title>
+<Attr4VanChart useHtml="false" floating="false" x="0.0" y="0.0" limitSize="false" maxHeight="15.0"/>
+</Title4VanChart>
+<SwitchTitle>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O>
+<![CDATA[新建图表标题]]></O>
+</SwitchTitle>
+<Plot class="com.fr.plugin.chart.column.VanChartColumnPlot">
+<VanChartPlotVersion version="20170715"/>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor/>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isNullValueBreak="true" autoRefreshPerSecond="6" seriesDragEnable="false" plotStyle="0" combinedSize="50.0"/>
+<newHotTooltipStyle>
+<AttrContents>
+<Attr showLine="false" position="1" isWhiteBackground="true" isShowMutiSeries="false" seriesLabel="${VALUE}"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##]]></Format>
+<PercentFormat>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#0.##%]]></Format>
+</PercentFormat>
+</AttrContents>
+</newHotTooltipStyle>
+<ConditionCollection>
+<DefaultAttr class="com.fr.chart.chartglyph.ConditionAttr">
+<ConditionAttr name="">
+<AttrList>
+<Attr class="com.fr.plugin.chart.base.AttrTooltip">
+<AttrTooltip>
+<Attr enable="true" duration="4" followMouse="false" showMutiSeries="false" isCustom="false"/>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<AttrToolTipContent>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<richText class="com.fr.plugin.chart.base.AttrTooltipRichText">
+<AttrTooltipRichText>
+<Attr content="" isAuto="true" initParamsContent=""/>
+</AttrTooltipRichText>
+</richText>
+<richTextValue class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</richTextValue>
+<richTextPercent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</richTextPercent>
+<richTextCategory class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="true"/>
+</AttrToolTipCategoryFormat>
+</richTextCategory>
+<richTextSeries class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="true"/>
+</AttrTooltipSeriesFormat>
+</richTextSeries>
+<richTextChangedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</richTextChangedPercent>
+<richTextChangedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</richTextChangedValue>
+<TableFieldCollection/>
+<Attr isCommon="true" isCustom="false" isRichText="false" richTextAlign="left" showAllSeries="false"/>
+<value class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</value>
+<percent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</percent>
+<category class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="true"/>
+</AttrToolTipCategoryFormat>
+</category>
+<series class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="true"/>
+</AttrTooltipSeriesFormat>
+</series>
+<changedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</changedPercent>
+<changedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</changedValue>
+<HtmlLabel customText="" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+</AttrToolTipContent>
+<GI>
+<AttrBackground>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Attr gradientType="normal" shadow="true" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="2"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="0.5"/>
+</AttrAlpha>
+</GI>
+</AttrTooltip>
+</Attr>
+<Attr class="com.fr.chart.base.AttrBorder">
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+</Attr>
+<Attr class="com.fr.chart.base.AttrAlpha">
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</Attr>
+<Attr class="com.fr.plugin.chart.base.AttrLabel">
+<AttrLabel>
+<labelAttr enable="true"/>
+<labelDetail class="com.fr.plugin.chart.base.AttrLabelDetail">
+<AttrBorderWithShape>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="2"/>
+<newColor autoColor="true" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+<shapeAttr isAutoColor="true" shapeType="RectangularMarker"/>
+</AttrBorderWithShape>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="0.8"/>
+</AttrAlpha>
+</GI>
+<Attr showLine="false" isHorizontal="true" autoAdjust="false" position="9" align="9" isCustom="false"/>
+<TextAttr>
+<Attr alignText="0" themed="true">
+<FRFont name="宋体" style="0" size="72"/>
+</Attr>
+</TextAttr>
+<AttrToolTipContent>
+<TextAttr>
+<Attr alignText="0" themed="true">
+<FRFont name="宋体" style="0" size="72"/>
+</Attr>
+</TextAttr>
+<richText class="com.fr.plugin.chart.base.AttrTooltipRichText">
+<AttrTooltipRichText>
+<Attr content="&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img data-id=&quot;${VALUE}&quot;/&gt;&lt;br&gt;&lt;/p&gt;" isAuto="true" initParamsContent="${VALUE}"/>
+</AttrTooltipRichText>
+</richText>
+<richTextValue class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</richTextValue>
+<richTextPercent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</richTextPercent>
+<richTextCategory class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</richTextCategory>
+<richTextSeries class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="false"/>
+</AttrTooltipSeriesFormat>
+</richTextSeries>
+<richTextChangedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</richTextChangedPercent>
+<richTextChangedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</richTextChangedValue>
+<TableFieldCollection/>
+<Attr isCommon="true" isCustom="false" isRichText="false" richTextAlign="center" showAllSeries="false"/>
+<value class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</value>
+<percent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</percent>
+<category class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</category>
+<series class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="false"/>
+</AttrTooltipSeriesFormat>
+</series>
+<changedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</changedPercent>
+<changedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</changedValue>
+<HtmlLabel customText="" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+</AttrToolTipContent>
+</labelDetail>
+</AttrLabel>
+</Attr>
+</AttrList>
+</ConditionAttr>
+</DefaultAttr>
+</ConditionCollection>
+<Legend4VanChart>
+<Legend>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-3355444" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr position="1" visible="false" themed="false"/>
+<FRFont name="微软雅黑" style="0" size="72">
+<foreground>
+<FineColor color="-10066330" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Legend>
+<Attr4VanChart floating="false" x="0.0" y="0.0" layout="aligned" customSize="false" maxHeight="30.0" isHighlight="true"/>
+</Legend4VanChart>
+<DataSheet>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<Attr isVisible="false" themed="false"/>
+<FRFont name="SimSun" style="0" size="72"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##]]></Format>
+</DataSheet>
+<NameJavaScriptGroup>
+<NameJavaScript name="动态参数1">
+<JavaScript class="com.fr.js.ParameterJavaScript">
+<Parameters>
+<Parameter>
+<Attributes name="部门"/>
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=CATEGORY]]></Attributes>
+</O>
+</Parameter>
+</Parameters>
+</JavaScript>
+</NameJavaScript>
+</NameJavaScriptGroup>
+<DataProcessor class="com.fr.base.chart.chartdata.model.NormalDataModel"/>
+<newPlotFillStyle>
+<AttrFillStyle>
+<AFStyle colorStyle="1"/>
+<FillStyleName fillStyleName=""/>
+<isCustomFillStyle isCustomFillStyle="true"/>
+<PredefinedStyle themed="false"/>
+<ColorList>
+<OColor>
+<colvalue>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-8793091" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-9883" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-35717" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-6388993" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-5581845" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-9328149" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-1188474" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+<OColor>
+<colvalue>
+<FineColor color="-6715442" hor="-1" ver="-1"/>
+</colvalue>
+</OColor>
+</ColorList>
+</AttrFillStyle>
+</newPlotFillStyle>
+<VanChartPlotAttr isAxisRotation="false" categoryNum="1"/>
+<GradientStyle>
+<Attr gradientType="gradual">
+<startColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</startColor>
+<endColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</endColor>
+</Attr>
+</GradientStyle>
+<VanChartRectanglePlotAttr vanChartPlotType="normal" isDefaultIntervalBackground="true"/>
+<XAxisList>
+<VanChartAxis class="com.fr.plugin.chart.attr.axis.VanChartAxis">
+<Title>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O>
+<![CDATA[]]></O>
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="Verdana" style="0" size="88">
+<foreground>
+<FineColor color="-10066330" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<TitleVisible value="true" position="0"/>
+</Title>
+<newAxisAttr isShowAxisLabel="true"/>
+<AxisLineStyle AxisStyle="1" MainGridStyle="1"/>
+<newLineColor themed="false" mainGridPredefinedStyle="false">
+<mainGridColor>
+<FineColor color="-2169358" hor="-1" ver="-1"/>
+</mainGridColor>
+<lineColor>
+<FineColor color="-5197648" hor="-1" ver="-1"/>
+</lineColor>
+</newLineColor>
+<AxisPosition value="3"/>
+<TickLine201106 type="2" secType="0"/>
+<ArrowShow arrowShow="false"/>
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="Verdana" style="0" size="88">
+<foreground>
+<FineColor color="-10066330" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<AxisLabelCount value="=1"/>
+<AxisRange/>
+<AxisUnit201106 isCustomMainUnit="false" isCustomSecUnit="false" mainUnit="=0" secUnit="=0"/>
+<ZoomAxisAttr isZoom="false"/>
+<axisReversed axisReversed="false"/>
+<VanChartAxisAttr mainTickLine="2" secTickLine="0" axisName="X轴" titleUseHtml="false" labelDisplay="interval" autoLabelGap="true" limitSize="false" maxHeight="15.0" commonValueFormat="true" isRotation="false" isShowAxisTitle="false" displayMode="0" gridLineType="dashed"/>
+<HtmlLabel customText="function(){ return this; }" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+<alertList/>
+<styleList/>
+<customBackgroundList/>
+</VanChartAxis>
+</XAxisList>
+<YAxisList>
+<VanChartAxis class="com.fr.plugin.chart.attr.axis.VanChartValueAxis">
+<Title>
+<GI>
+<AttrBackground>
+<Background name="NullBackground"/>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="0" isRoundBorder="false" roundRadius="0"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-16777216" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="1.0"/>
+</AttrAlpha>
+</GI>
+<O>
+<![CDATA[]]></O>
+<TextAttr>
+<Attr rotation="-90" alignText="0" themed="false">
+<FRFont name="Verdana" style="0" size="88">
+<foreground>
+<FineColor color="-10066330" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<TitleVisible value="true" position="0"/>
+</Title>
+<newAxisAttr isShowAxisLabel="true"/>
+<AxisLineStyle AxisStyle="0" MainGridStyle="1"/>
+<newLineColor themed="false">
+<lineColor>
+<FineColor color="-5197648" hor="-1" ver="-1"/>
+</lineColor>
+</newLineColor>
+<AxisPosition value="2"/>
+<TickLine201106 type="2" secType="0"/>
+<ArrowShow arrowShow="false"/>
+<TextAttr>
+<Attr alignText="0" themed="false">
+<FRFont name="Verdana" style="0" size="88">
+<foreground>
+<FineColor color="-10066330" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+</Attr>
+</TextAttr>
+<AxisLabelCount value="=1"/>
+<AxisRange/>
+<AxisUnit201106 isCustomMainUnit="false" isCustomSecUnit="false" mainUnit="=0" secUnit="=0"/>
+<ZoomAxisAttr isZoom="false"/>
+<axisReversed axisReversed="false"/>
+<VanChartAxisAttr mainTickLine="0" secTickLine="0" axisName="Y轴" titleUseHtml="false" labelDisplay="interval" autoLabelGap="true" limitSize="false" maxHeight="15.0" commonValueFormat="true" isRotation="false" isShowAxisTitle="false" displayMode="0" gridLineType="NONE"/>
+<HtmlLabel customText="function(){ return this; }" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+<alertList/>
+<styleList/>
+<customBackgroundList/>
+<VanChartValueAxisAttr isLog="false" valueStyle="false" baseLog="=10"/>
+<ds>
+<RadarYAxisTableDefinition>
+<Top topCate="-1" topValue="-1" isDiscardOtherCate="false" isDiscardOtherSeries="false" isDiscardNullCate="false" isDiscardNullSeries="false"/>
+<attr/>
+</RadarYAxisTableDefinition>
+</ds>
+</VanChartAxis>
+</YAxisList>
+<stackAndAxisCondition>
+<ConditionCollection>
+<DefaultAttr class="com.fr.chart.chartglyph.ConditionAttr">
+<ConditionAttr name=""/>
+</DefaultAttr>
+</ConditionCollection>
+</stackAndAxisCondition>
+<VanChartColumnPlotAttr seriesOverlapPercent="20.0" categoryIntervalPercent="20.0" fixedWidth="true" columnWidth="28" filledWithImage="false" isBar="false"/>
+</Plot>
+<ChartDefinition>
+<MoreNameCDDefinition>
+<Top topCate="-1" topValue="-1" isDiscardOtherCate="false" isDiscardOtherSeries="false" isDiscardNullCate="false" isDiscardNullSeries="false"/>
+<TableData class="com.fr.data.impl.NameTableData">
+<Name>
+<![CDATA[部门费用]]></Name>
+</TableData>
+<CategoryName value="部门"/>
+<ChartSummaryColumn name="总费用" function="com.fr.data.util.function.SumFunction" customName="总费用"/>
+</MoreNameCDDefinition>
+</ChartDefinition>
+</Chart>
+<UUID uuid="c8a4c19d-440c-4b6a-aa94-fac3c18ba3dc"/>
+<tools hidden="true" sort="false" export="false" fullScreen="false"/>
+<VanChartZoom>
+<zoomAttr zoomVisible="false" zoomGesture="true" zoomResize="true" zoomType="xy" controlType="zoom" categoryNum="8" scaling="0.3"/>
+<from>
+<![CDATA[]]></from>
+<to>
+<![CDATA[]]></to>
+</VanChartZoom>
+<refreshMoreLabel>
+<attr moreLabel="false" autoTooltip="true"/>
+<AttrTooltip>
+<Attr enable="true" duration="4" followMouse="false" showMutiSeries="false" isCustom="false"/>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<AttrToolTipContent>
+<TextAttr>
+<Attr alignText="0" themed="false"/>
+</TextAttr>
+<richText class="com.fr.plugin.chart.base.AttrTooltipRichText">
+<AttrTooltipRichText>
+<Attr content="" isAuto="true" initParamsContent=""/>
+</AttrTooltipRichText>
+</richText>
+<richTextValue class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</richTextValue>
+<richTextPercent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</richTextPercent>
+<richTextCategory class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="false"/>
+</AttrToolTipCategoryFormat>
+</richTextCategory>
+<richTextSeries class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="false"/>
+</AttrTooltipSeriesFormat>
+</richTextSeries>
+<richTextChangedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</richTextChangedPercent>
+<richTextChangedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="false"/>
+</AttrTooltipChangedValueFormat>
+</richTextChangedValue>
+<TableFieldCollection/>
+<Attr isCommon="true" isCustom="false" isRichText="false" richTextAlign="left" showAllSeries="false"/>
+<value class="com.fr.plugin.chart.base.format.AttrTooltipValueFormat">
+<AttrTooltipValueFormat>
+<Attr enable="true"/>
+</AttrTooltipValueFormat>
+</value>
+<percent class="com.fr.plugin.chart.base.format.AttrTooltipPercentFormat">
+<AttrTooltipPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipPercentFormat>
+</percent>
+<category class="com.fr.plugin.chart.base.format.AttrTooltipCategoryFormat">
+<AttrToolTipCategoryFormat>
+<Attr enable="true"/>
+</AttrToolTipCategoryFormat>
+</category>
+<series class="com.fr.plugin.chart.base.format.AttrTooltipSeriesFormat">
+<AttrTooltipSeriesFormat>
+<Attr enable="true"/>
+</AttrTooltipSeriesFormat>
+</series>
+<changedPercent class="com.fr.plugin.chart.base.format.AttrTooltipChangedPercentFormat">
+<AttrTooltipChangedPercentFormat>
+<Attr enable="false"/>
+<Format class="com.fr.base.CoreDecimalFormat" roundingMode="6">
+<![CDATA[#.##%]]></Format>
+</AttrTooltipChangedPercentFormat>
+</changedPercent>
+<changedValue class="com.fr.plugin.chart.base.format.AttrTooltipChangedValueFormat">
+<AttrTooltipChangedValueFormat>
+<Attr enable="true"/>
+</AttrTooltipChangedValueFormat>
+</changedValue>
+<HtmlLabel customText="" useHtml="false" isCustomWidth="false" isCustomHeight="false" width="50" height="50"/>
+</AttrToolTipContent>
+<GI>
+<AttrBackground>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Attr gradientType="normal" shadow="false" autoBackground="false" themed="false">
+<gradientStartColor>
+<FineColor color="-12146441" hor="-1" ver="-1"/>
+</gradientStartColor>
+<gradientEndColor>
+<FineColor color="-9378161" hor="-1" ver="-1"/>
+</gradientEndColor>
+</Attr>
+</AttrBackground>
+<AttrBorder>
+<Attr lineStyle="1" isRoundBorder="false" roundRadius="4"/>
+<newColor autoColor="false" themed="false">
+<borderColor>
+<FineColor color="-15395563" hor="-1" ver="-1"/>
+</borderColor>
+</newColor>
+</AttrBorder>
+<AttrAlpha>
+<Attr alpha="0.8"/>
+</AttrAlpha>
+</GI>
+</AttrTooltip>
+</refreshMoreLabel>
+<ThemeAttr>
+<Attr darkTheme="false"/>
+</ThemeAttr>
+</Chart>
+</O>
+<PrivilegeControl/>
+<Expand>
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="1" r="7" rs="2" s="3">
+<O>
+<![CDATA[序号]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="7" rs="2" s="3">
+<O>
+<![CDATA[费用类别]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="7" rs="2" s="3">
+<O>
+<![CDATA[费用内容说明]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="7" cs="3" s="3">
+<O>
+<![CDATA[上年情况]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="7" cs="3" s="3">
+<O>
+<![CDATA[本年预算]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="8" s="3">
+<O>
+<![CDATA[上年预算]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="8" s="3">
+<O>
+<![CDATA[上年支出]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="8" s="3">
+<O>
+<![CDATA[计划与实际差异]]></O>
+<PrivilegeControl/>
+<Expand>
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="7" r="8" s="3">
+<O>
+<![CDATA[本年预算]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="8" s="3">
+<O>
+<![CDATA[预算说明]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="9" r="8" s="3">
+<O>
+<![CDATA[可上传附件]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="9" s="4">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="科目大类"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="2" r="9" s="5">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="9" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="9" s="7">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="9" s="7">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="9" s="7">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="9" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="9" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="9" r="9" s="6">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="10" s="8">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=seq()]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="C11"/>
+</C>
+<C c="2" r="10" s="9">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="科目代码"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+<cellSortAttr/>
+</O>
+<PrivilegeControl/>
+<Present class="com.fr.base.present.FormulaPresent">
+<Content>
+<![CDATA[=费用明细.select(科目类别, 科目代码 = $$$)]]></Content>
+</Present>
+<Expand dir="0" leftParentDefault="false" left="B10">
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="3" r="10" s="10">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="核算内容说明"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+<cellSortAttr/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0">
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="4" r="10" s="11">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+<cellSortAttr/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0">
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="5" r="10" s="11">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="实际费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="6" r="10" s="11">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="费用预算差异"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="7" r="10" s="11">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="8" r="10" s="11">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="预算说明"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<CellGUIAttr showAsDefault="true">
+<FileName>
+<![CDATA[附件.pdf]]></FileName>
+</CellGUIAttr>
+<CellPageAttr/>
+<Expand dir="0"/>
+</C>
+<C c="9" r="10" s="11">
+<O t="DSColumn">
+<Attributes dsName="费用明细" columnName="说明附件"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper">
+<Attr divideMode="1"/>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<CellGUIAttr showAsDownload="true">
+<FileName>
+<![CDATA[预算附件.pdf]]></FileName>
+</CellGUIAttr>
+<CellPageAttr/>
+<Widget class="com.fr.form.ui.MultiFileEditor">
+<WidgetAttr aspectRatioLocked="false" aspectRatioBackup="-1.0" description="">
+<MobileBookMark useBookMark="false" bookMarkName="" frozen="false" index="-1" oldWidgetName=""/>
+<PrivilegeControl/>
+</WidgetAttr>
+<FileAttr maxlength="1" accept="pdf" maxSize="0.0">
+<MultiFileUploaderMobileAttr uploadMode="0"/>
+</FileAttr>
+</Widget>
+<Expand dir="0"/>
+</C>
+<C c="1" r="11" s="12">
+<O>
+<![CDATA[小计]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="11" s="13">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+<cellSortAttr/>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="B10">
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="5" r="11" s="13">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="实际费用"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+<cellSortAttr/>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="B10">
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="6" r="11" s="13">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="费用预算差异"/>
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[0]]></CNUMBER>
+<CNAME>
+<![CDATA[科目代码]]></CNAME>
+<Compare op="0">
+<ColumnRow column="2" row="10"/>
+</Compare>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+<cellSortAttr/>
+</O>
+<PrivilegeControl/>
+<Expand leftParentDefault="false" left="B10">
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="7" r="11" s="13">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=SUM(H8)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand>
+<cellSortAttr/>
+</Expand>
+</C>
+<C c="8" r="11" s="13">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="12" s="14">
+<O>
+<![CDATA[合计]]></O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="2" r="12" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="3" r="12" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="4" r="12" s="16">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="预算费用"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="5" r="12" s="16">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="实际费用"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="6" r="12" s="16">
+<O t="DSColumn">
+<Attributes dsName="上年费用明细" columnName="费用预算差异"/>
+<Condition class="com.fr.data.condition.ListCondition"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.SumFunction]]></FN>
+</RG>
+<Result>
+<![CDATA[$$$]]></Result>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="7" r="12" s="16">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=SUM(H8)]]></Attributes>
+</O>
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="8" r="12" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="9" r="12" s="15">
+<PrivilegeControl/>
+<Expand/>
+</C>
+<C c="1" r="14">
+<O t="DSColumn">
+<Attributes dsName="预算流程ID" columnName="预算流程ID"/>
+<Complex/>
+<RG class="com.fr.report.cell.cellattr.core.group.FunctionGrouper"/>
+<Parameters/>
+</O>
+<PrivilegeControl/>
+<Expand dir="0"/>
+</C>
+<C c="2" r="14">
+<PrivilegeControl/>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<FrozenColumnRow columnrow="A10"/>
+<PaperSetting>
+<PaperSize width="46080000" height="57168000"/>
+<Margin top="144000" left="288000" bottom="986400" right="2743200"/>
+</PaperSetting>
+<FollowingTheme background="false"/>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</color>
+</Background>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+<ReportWriteAttr>
+<SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
+<Name>
+<![CDATA[流程单填报]]></Name>
+<Attributes dsName="Mysql数据连接"/>
+<DMLConfig class="com.fr.write.config.UpdateConfig">
+<Table schema="" name="fd_费用预算流转表"/>
+<ColumnConfig name="预算流程ID" isKey="true" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=B15]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="状态" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[总经理审核]]></O>
+</ColumnConfig>
+<ColumnConfig name="处理人" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=20150101001]]></Attributes>
+</O>
+</ColumnConfig>
+<Condition class="com.fr.data.condition.ListCondition"/>
+</DMLConfig>
+</SubmitVisitor>
+<SubmitVisitor class="com.fr.report.write.BuiltInSQLSubmiter">
+<Name>
+<![CDATA[操作内容提交]]></Name>
+<Attributes dsName="Mysql数据连接"/>
+<DMLConfig class="com.fr.write.config.InsertConfig">
+<Table schema="" name="fd_费用流程操作表"/>
+<ColumnConfig name="预算流程ID" isKey="false" skipUnmodified="false">
+<ColumnRow column="1" row="14"/>
+</ColumnConfig>
+<ColumnConfig name="处理人" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=$fine_username]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="操作时间" isKey="false" skipUnmodified="false">
+<O t="XMLable" class="com.fr.base.Formula">
+<Attributes>
+<![CDATA[=NOW()]]></Attributes>
+</O>
+</ColumnConfig>
+<ColumnConfig name="状态" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[财务提交至总经理]]></O>
+</ColumnConfig>
+<ColumnConfig name="操作内容" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[财务提交至总经理]]></O>
+</ColumnConfig>
+<ColumnConfig name="操作建议" isKey="false" skipUnmodified="false">
+<O>
+<![CDATA[财务提交至总经理]]></O>
+</ColumnConfig>
+<Condition class="com.fr.data.condition.ListCondition"/>
+</DMLConfig>
+</SubmitVisitor>
+</ReportWriteAttr>
+<PrivilegeControl/>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="true" windowPosition="1" align="0" useParamsTemplate="true" currentIndex="0"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+</ReportParameterAttr>
+<StyleList>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="112">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="2">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Bottom>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72">
+<foreground>
+<FineColor color="-12235433" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72">
+<foreground>
+<FineColor color="-12235433" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80">
+<foreground>
+<FineColor color="-1" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Top>
+<Bottom style="1">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Bottom>
+<Left style="1">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Left>
+<Right style="1">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Right>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Top>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="88">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Top>
+</Border>
+</Style>
+<Style horizontal_alignment="2" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="88">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Top>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="80">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-1116417" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Top>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3">
+<color>
+<FineColor color="-2169358" hor="-1" ver="-1"/>
+</color>
+</Bottom>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72">
+<foreground>
+<FineColor color="-12235433" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3">
+<color>
+<FineColor color="-2169358" hor="-1" ver="-1"/>
+</color>
+</Bottom>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72">
+<foreground>
+<FineColor color="-12235433" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3">
+<color>
+<FineColor color="-2169358" hor="-1" ver="-1"/>
+</color>
+</Bottom>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="0" size="72">
+<foreground>
+<FineColor color="-12235433" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border>
+<Bottom style="3">
+<color>
+<FineColor color="-2169358" hor="-1" ver="-1"/>
+</color>
+</Bottom>
+</Border>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="80">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="72">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style horizontal_alignment="0" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="96">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-3020545" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Top>
+</Border>
+</Style>
+<Style imageLayout="1">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-3020545" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Top>
+</Border>
+</Style>
+<Style horizontal_alignment="4" imageLayout="1">
+<FRFont name="微软雅黑" style="1" size="80">
+<foreground>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</foreground>
+</FRFont>
+<Background name="ColorBackground">
+<color>
+<FineColor color="-3020545" hor="-1" ver="-1"/>
+</color>
+</Background>
+<Border>
+<Top style="1">
+<color>
+<FineColor color="-14840065" hor="-1" ver="-1"/>
+</color>
+</Top>
+</Border>
+</Style>
+</StyleList>
+<DesensitizationList/>
+<DesignerVersion DesignerVersion="LAA"/>
+<PreviewType PreviewType="1"/>
+<TemplateThemeAttrMark class="com.fr.base.iofile.attr.TemplateThemeAttrMark">
+<TemplateThemeAttrMark name="兼容主题" dark="false"/>
+</TemplateThemeAttrMark>
+<StrategyConfigsAttr class="com.fr.esd.core.strategy.persistence.StrategyConfigsAttr">
+<StrategyConfigs>
+<StrategyConfig dsName="费用明细" enabled="false" useGlobal="true" shouldMonitor="true" shouldEvolve="false" scheduleBySchema="false" timeToLive="1500000" timeToIdle="86400000" updateInterval="1500000" terminalTime="" updateSchema="0 0 8 * * ? *" activeInitiation="false"/>
+<StrategyConfig dsName="预算流程ID" enabled="false" useGlobal="true" shouldMonitor="true" shouldEvolve="false" scheduleBySchema="false" timeToLive="1500000" timeToIdle="86400000" updateInterval="1500000" terminalTime="" updateSchema="0 0 8 * * ? *" activeInitiation="false"/>
+<StrategyConfig dsName="类别数据" enabled="false" useGlobal="true" shouldMonitor="true" shouldEvolve="false" scheduleBySchema="false" timeToLive="1500000" timeToIdle="86400000" updateInterval="1500000" terminalTime="" updateSchema="0 0 8 * * ? *" activeInitiation="false"/>
+<StrategyConfig dsName="上年费用明细" enabled="false" useGlobal="true" shouldMonitor="true" shouldEvolve="false" scheduleBySchema="false" timeToLive="1500000" timeToIdle="86400000" updateInterval="1500000" terminalTime="" updateSchema="0 0 8 * * ? *" activeInitiation="false"/>
+<StrategyConfig dsName="部门费用" enabled="false" useGlobal="true" shouldMonitor="true" shouldEvolve="false" scheduleBySchema="false" timeToLive="1500000" timeToIdle="86400000" updateInterval="1500000" terminalTime="" updateSchema="0 0 8 * * ? *" activeInitiation="false"/>
+</StrategyConfigs>
+</StrategyConfigsAttr>
+<ForkIdAttrMark class="com.fr.base.iofile.attr.ForkIdAttrMark">
+<ForkIdAttrMark forkId="b8153fbe-a4ae-4ccd-a640-749950ef5919"/>
+</ForkIdAttrMark>
+<TemplateCloudInfoAttrMark class="com.fr.plugin.cloud.analytics.attr.TemplateInfoAttrMark" pluginID="com.fr.plugin.cloud.analytics.v11" plugin-version="3.32.0.20241202">
+<TemplateCloudInfoAttrMark createTime="1649664479071"/>
+</TemplateCloudInfoAttrMark>
+<TemplateIdAttMark class="com.fr.base.iofile.attr.TemplateIdAttrMark">
+<TemplateIdAttMark TemplateId="b8153fbe-a4ae-4ccd-a640-749950ef5919"/>
+</TemplateIdAttMark>
+</WorkBook>
